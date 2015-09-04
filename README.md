@@ -77,9 +77,8 @@ Assuming your awesome meteor app repo is in dir mymeteorapp
     git commit -a -m 'meteor-openshift'
     git push
     
-After a lot of messages from the remote server, your Meteor app should be finally running at 
-    http://mynodeapp-<mynamespace>.rhcloud.com
+After a lot of messages from the remote server, your awesome Meteor app should be finally running at 
+    http://mynodeapp-mydomain.rhcloud.com
 
-Enjoy the Meteor awesomeness 
 
 This repo has not been throughly tested, please report issues or suggest improvements.
