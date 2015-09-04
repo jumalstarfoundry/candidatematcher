@@ -53,7 +53,7 @@ You should have a MONGO_URL ready to use with the app, either running on OPENSHI
 
 Step 2 Update env variables 
 ------------------------------------------------------------
-Open the file `meteorshim.js` to use your own MONGO_URL env variable
+Update the file `meteorshim.js` to use your own MONGO_URL env variable
 MAIL_URL may also be added if needed.
 
 Step 3 Adding your Meteor App 
