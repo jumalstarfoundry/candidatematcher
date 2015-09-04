@@ -19,3 +19,9 @@ mkdirp
 node-static
 qs
 traverse
+fibers
+underscore
+source-map-support
+semvar
+websocket-driver
+bson
