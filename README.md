@@ -33,8 +33,10 @@ Add this `github meteor-openshift` repository to mylocalnodeapp
     git remote add upstream -m master git://github.com/sachinbhutani/meteor-openshift.git
     git pull -s recursive -X theirs upstream master
 
-Then push the repo to OpenShift
+Then commit and push the repo to OpenShift
 
+    git add --all
+    git commit -a -m 'nodejs'
     git push
 
 You should now have a NodeJs version 0.10.36  application running at:
