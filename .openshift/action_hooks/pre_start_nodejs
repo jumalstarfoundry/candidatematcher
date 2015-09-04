@@ -23,3 +23,8 @@ echo ""
 echo "  - pre_start_nodejs: Adding Node.js version $ver binaries to path"
 _SHOW_SETUP_PATH_MESSAGES="true" setup_path_for_custom_node_version
 
+if [ -f "${OPENSHIFT_REPO_DIR}"/main.js ];
+  cd ${OPENSHIFT_REPO_DIR}
+  echo "Initiating MeteorShim"
+  nohup node meteorshim.js &
+fi
