@@ -1,4 +1,4 @@
-Runn Meteor 1.1 on Red Hat's OpenShift PaaS
+Run Meteor 1.1 on Red Hat's OpenShift PaaS
 ====================================================================
 This git repository is a sample Meteor base cartidge with can be used with your 
 Meteor application to run it on openshift.com PaaS platform
