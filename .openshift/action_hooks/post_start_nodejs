@@ -34,8 +34,6 @@ if [ "$zcode" -eq 200 ]; then
    echo ""
    echo "  - Using Node.js version $ver, checking app URI ... "
    echo "  - test URI = $app_uri"
-   echo "  - Version from test URI = $(curl -s $app_uri | grep 'Version')"
-   echo ""
 fi
 
 
