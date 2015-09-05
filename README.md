@@ -15,15 +15,12 @@ Step 0
 Step 1 - Get NodeJS v0.10.36 running on your openshift app
 ----------------------------------------------------------
 
-Create a namespace on your openshift account, if you haven't already done so
+Create a new application `mynodeapp` in your openshift login control panel 
+using the standard NodeJS 0.10 cartrige. 
+You may choose to add auto-scaling while setting this up.
+Choosing autoscaling would add an HAPProxy instance you your application. 
 
-    rhc domain create mydomain
-
-Create a nodejs application , you can name it anything via -a
-
-    rhc app create -a mynodeapp -t nodejs-0.10
-
-Navigate to your application page at openshift.com and clone your app to a local directory using the source code SSH URL
+Now clone the git URL available on your application page to your local system
     
     git clone SOURCE_CODE_URL  mylocalnodeapp
 
