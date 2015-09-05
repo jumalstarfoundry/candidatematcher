@@ -48,24 +48,24 @@ Step 2 Setup Mongo DB 3.0
 ------------------------------------------------------------
 On your application page go to the link "See the list of cartridges you can add", paste the URL below in "Install your own cartridge" textbox at the bottom of the page and click "Next".
 
-        `http://cartreflect-claytondev.rhcloud.com/github/icflorescu/openshift-cartridge-mongodb`
+        http://cartreflect-claytondev.rhcloud.com/github/icflorescu/openshift-cartridge-mongodb
 
-Alternatively if you like to use another MongoDB database hosts like `http://compose.io` or a `http://mongolab.com/` 
-You would need to update the `meteorshim.js` file as described in the next section with a MONGO_URL 
+Alternatively if you like to use another MongoDB database hosts like http://compose.io or http://mongolab.com/ 
+You would need to update the `meteorshim.js` file as described in the next section with a MONGO_URL if you plan to use an external MongoDB host.
 
 Step 2 Update env variables 
 ------------------------------------------------------------
-Update the file `meteorshim.js` to use your own MONGO_URL env variable
+Update the file `meteorshim.js` to use your own MONGO_URL env variable.
 MAIL_URL and other env variables may also be added as needed.
 
 Step 3 Adding your Meteor App 
 ------------------------------------------------------------
 Build your meteor app and un-bundle it into the `mylocalnodeapp` directory for pushing to OpenShift
 
-The following steps need to be repeated each time you want to push an updated version of your meteor app to openshift 
-you may create a shell script for it in your meteor repo 
+The following steps need to be repeated each time you want to push an updated version of your meteor app to openshift. 
+You may create a shell script for it in your meteor repo 
 
-Assuming your awesome meteor app repo is in dir mymeteorapp
+Assuming your awesome meteor app repo is in dir `mymeteorapp`
 
     cd mymeteorapp 
     meteor build tarball
@@ -81,5 +81,5 @@ Assuming your awesome meteor app repo is in dir mymeteorapp
 After a lot of messages from the remote server, your awesome Meteor app should be finally running at 
     http://mynodeapp-mydomain.rhcloud.com
 
-
-This repo has not been throughly tested, please report issues or suggest improvements.
+----------------------------------------------------------------------------------------
+This repo has not been throughly tested, please report any issues or suggest improvements.
