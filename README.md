@@ -18,7 +18,7 @@ Step 1 - Get NodeJS v0.10.36 running on your openshift app
 Create a new application `mynodeapp` in your openshift login control panel 
 using the standard NodeJS 0.10 cartrige. 
 You may choose to add auto-scaling while setting this up.
-Choosing autoscaling would add an HAPProxy instance you your application. 
+Choosing autoscaling would add an HAProxy instance you your application. 
 
 Now clone the git URL available on your application page to your local system
     
