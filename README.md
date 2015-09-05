@@ -44,12 +44,14 @@ You should now have a NodeJs version 0.10.36  application running at:
 Check the URL http://mynodeapp-mydomain.rhcloud.com/env and save the environment variables to a local file.
 You may need some of them if something goes wrong.
 
-Step 2 Setup Mongo DB
+Step 2 Setup Mongo DB 3.0
 ------------------------------------------------------------
-Create a MongoDB database at compose.io or mongolab.com 
-If you want to run MongoDB on Openshift itself, refer to other projects to use Mongo 2.6/3.0 on Openshift
+On your application page go to the link "See the list of cartridges you can add", paste the URL below in "Install your own cartridge" textbox at the bottom of the page and click "Next".
 
-You should have a MONGO_URL ready to use with the app to proceed to next step, either running on OPENSHIFT or any other DB host
+        `http://cartreflect-claytondev.rhcloud.com/github/icflorescu/openshift-cartridge-mongodb`
+
+Alternatively if you like to use another MongoDB database hosts like `http://compose.io` or a `http://mongolab.com/` 
+You would need to update the `meteorshim.js` file as described in the next section with a MONGO_URL 
 
 Step 2 Update env variables 
 ------------------------------------------------------------
