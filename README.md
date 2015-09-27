@@ -53,12 +53,12 @@ On your application page go to the link "See the list of cartridges you can add"
 Alternatively if you like to use another MongoDB database hosts like http://compose.io or http://mongolab.com/ 
 You would need to update the `meteorshim.js` file as described in the next section with a MONGO_URL if you plan to use an external MongoDB host.
 
-Step 2 Update env variables 
+Step 3 Update env variables 
 ------------------------------------------------------------
 Update the file `meteorshim.js` to use your own MONGO_URL env variable.
 MAIL_URL and other env variables may also be added as needed.
 
-Step 3 Adding your Meteor App 
+Step 4 Adding your Meteor App 
 ------------------------------------------------------------
 Build your meteor app and un-bundle it into the `mylocalnodeapp` directory for pushing to OpenShift
 
