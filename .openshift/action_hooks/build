@@ -26,7 +26,7 @@ fi
 #  Do npm install with the new npm binary.
 # check if a meteor repo is availabl
 if [ -f "${OPENSHIFT_REPO_DIR}"/programs/server/package.json ]; then
-echo "  - Installing Meteor 1.1 dependencies "
+echo "  - Installing Meteor 1.2 dependencies "
    echo
   (cd "${OPENSHIFT_REPO_DIR}/programs/server/npm/npm-bcrypt/node_modules"; rm -rf bcrypt) 
   (cd "${OPENSHIFT_REPO_DIR}/programs/server";export TMPDIR="tmp"; npm install bcrypt -d --cache ${OPENSHIFT_DATA_DIR})

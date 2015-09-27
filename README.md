@@ -1,9 +1,9 @@
-Run Meteor 1.1 on Red Hat's OpenShift PaaS
+Run Meteor 1.2 on Red Hat's OpenShift PaaS
 ====================================================================
 This git repository is a sample Meteor base cartidge with can be used with your 
 Meteor application to run it on openshift.com PaaS platform
 
-The catridge would install NodeJS version 0.10.36
+The catridge would install NodeJS version 0.10.40
 
 Step 0 
 ----------------------------------------------------------
@@ -12,7 +12,7 @@ Step 0
         https://developers.openshift.com/en/managing-client-tools.html
 
 
-Step 1 - Get NodeJS v0.10.36 running on your openshift app
+Step 1 - Get NodeJS v0.10.40 running on your openshift app
 ----------------------------------------------------------
 
 Create a new application `mynodeapp` in your openshift login control panel 
@@ -36,7 +36,7 @@ Then commit and push the repo to OpenShift
     git commit -a -m 'nodejs'
     git push
 
-You should now have a NodeJs version 0.10.36  application running at:
+You should now have a NodeJs version 0.10.40  application running at:
 
     http://mynodeapp-mydomain.rhcloud.com
     ( See env @ http://mynodeapp-mydomain.rhcloud.com/env )
