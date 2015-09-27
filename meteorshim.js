@@ -21,10 +21,10 @@ fs.stat('main.js', function(err, stat) {
 if(!err)
 {
   // Start meteor server
-  console.log("************ Ready to START METEOR 1.1 SERVER  ************");
+  console.log("************ Ready to START METEOR 1.2 SERVER  ************");
   require('./main.js');
 }else{
-  console.log("************ Starting NodeJS 0.10.36 SERVER  ************");
+  console.log("************ Starting NodeJS 0.10.40 SERVER  ************");
   require('./server.js');
 }
 });
