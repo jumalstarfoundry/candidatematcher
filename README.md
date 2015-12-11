@@ -72,7 +72,7 @@ Assuming your awesome meteor app repo is in dir `mymeteorapp`
     cp tarball/mymeteorapp.tar.gz ~/path/to/mylocalnodeapp
     rm tarball/mymeteorapp.tar.gz
     cd ~/path/to/mylocalnodeapp
-    
+
     # for Mac or BSD-based
     tar -xvf mylocalnodeapp.tar.gz -s '/^bundle//'
 
