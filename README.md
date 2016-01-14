@@ -29,6 +29,11 @@ Add this `github meteor-openshift` repository to mylocalnodeapp
     cd mylocalnodeapp
     git remote add upstream -m master git://github.com/sachinbhutani/meteor-openshift.git
     git pull -s recursive -X theirs upstream master
+	
+Check if the execution flag is set for scripts located inside the given folders:
+
+    .openshift\action_hooks 
+	.openshift\lib
 
 Then commit and push the repo to OpenShift
 
