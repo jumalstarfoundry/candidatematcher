@@ -79,10 +79,10 @@ Assuming your awesome meteor app repo is in dir `mymeteorapp`
     cd ~/path/to/mylocalnodeapp
 
     # for Mac or BSD-based
-    tar -xvf mylocalnodeapp.tar.gz -s '/^bundle//'
+    tar -xvf mymeteorapp.tar.gz -s '/^bundle//'
 
     # for Linux, or using GNU tar
-    tar -xvf mylocalnodeapp.tar.gz --transform 's|^bundle/||'
+    tar -xvf mymeteorapp.tar.gz --transform 's|^bundle/||'
 
     rm mymeteorapp.tar.gz
     git add --all
