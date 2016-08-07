@@ -39,6 +39,7 @@ http@1.1.7
 id-map@1.0.8
 insecure@1.0.7
 jquery@1.11.9
+kadira:blaze-layout@2.3.0
 kadira:flow-router@2.12.1
 launch-screen@1.0.12
 livedata@1.0.18
@@ -84,5 +85,6 @@ underscore@1.0.9
 url@1.0.10
 useraccounts:bootstrap@1.14.2
 useraccounts:core@1.14.2
+useraccounts:flow-routing@1.14.2
 webapp@1.2.9_1
 webapp-hashing@1.0.9

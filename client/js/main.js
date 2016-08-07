@@ -3,6 +3,13 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 import './../views/main.html';
 
+Template.topBar.events({
+	'click .logout': function(event){
+		event.preventDefault();
+		AccountsTemplates.logout();
+	}
+    
+});
 
 Template.sideBar.onRendered(function(){
   var ctx  = document.getElementById("sampleProfileImage").getContext("2d");

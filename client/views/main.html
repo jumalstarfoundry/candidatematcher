@@ -1,3 +1,4 @@
+<template name="mainLayout">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,20 +11,86 @@
 </head>
 
 <body>
-  <section id="container" >
-    {{> topBar}}
 
-    {{> sideBar}}
+     <section id="container" >
+       {{> topBar}}
+
+       {{> sideBar}}
+
+       {{> Template.dynamic template=mainContent}}
+
+       {{> siteFooter}}
+
+      </section>
+
+</body>
+</template>
+
+<template name="userSignIn">
+
+   <section id="signin-content">
+
+    <section class="wrapper">
+    <div class="row">
+
+     <div class="col-lg-9">
+        <div class="row mtbox">
 
 
-    <!-- **********************************************************************************************************************************************************
-MAIN CONTENT
-*********************************************************************************************************************************************************** -->
-    <!--main content start-->
+          <div class="col-md-8 col-md-offset-4">
+
+
+            {{> atForm}}
+          </div><!-- /col-md-8 -->
+
+
+
+        </div><!-- /row mt -->
+     </div><!-- /col-lg-9 END SECTION MIDDLE -->
+
+
+    </div><!--/row -->
+    </section>
+
+
+  </section>
+
+</template>
+
+<template name="welcome">
+
+  <section id="welcome-content">
+
+    <section class="wrapper">
+    <div class="row">
+
+     <div class="col-lg-9">
+        <div class="row mtbox">
+
+
+          <div class="col-md-8 col-md-offset-4">
+            Welcome to the Mentor Candidate Matcher! Please click on the appropriate link on the left sidebar to continue.
+
+          </div><!-- /col-md-8 -->
+
+
+
+        </div><!-- /row mt -->
+     </div><!-- /col-lg-9 END SECTION MIDDLE -->
+
+
+    </div><!--/row -->
+    </section>
+
+
+  </section>
+</template>
+
+<template name="siteContent">
     <section id="main-content">
       <section class="wrapper">
         <div class="row">
-          <div class="col-lg-9 main-chart">
+          <div class="col-lg-9">
             {{> fileUpload}}
 
           </div><!-- /col-lg-9 END SECTION MIDDLE -->
@@ -32,15 +99,9 @@ MAIN CONTENT
 
         </div><!--/row -->
       </section>
-      {{>siteFooter}}
     </section>
 
-    <!--main content end-->
-
-  </section>
-
-
-</body>
+</template>
 
 
 <template name="topBar">
@@ -51,7 +112,7 @@ MAIN CONTENT
 </div>
 -->
     <!--logo start-->
-    <a href="index.html" class="logo"><b>Candidate Matcher</b></a>
+    <a href="/" class="logo"><b>Candidate Matcher</b></a>
     <!--logo end-->
 
     <div class="nav notify-row" id="top_menu">
@@ -73,11 +134,13 @@ MAIN CONTENT
     </div>
     <div class="top-menu">
       <ul class="nav pull-right top-menu">
-        <li><a class="logout" href="login.html">Logout</a></li>
+        <li><a class="logout">Logout</a></li>
       </ul>
     </div>
   </header>
 </template>
+
+
 <template name="sideBar">
   <!--sidebar start-->
   <aside>
@@ -97,16 +160,30 @@ MAIN CONTENT
             <canvas id="sampleProfileImage" height="60" width="60"></canvas>
 
         </p>
-        <h5 class="centered">Marcel Newman</h5>
+        <h5 class="centered">{{userName}}</h5>
 
         <li class="mt">
-          <a class="active" href="index.html">
+<!--
+<a class="active" href="index.html">
+-->
+          <a href="fileUpload">
             <i class="fa fa-dashboard"></i>
-            <span>Dashboard</span>
+            <span>Candidates Upload</span>
           </a>
         </li>
 
-        <li class="sub-menu">
+
+
+      </ul>
+      <!-- sidebar menu end-->
+    </div>
+  </aside>
+  <!--sidebar end-->
+
+</template>
+
+<template name="otherMenuItems">
+          <li class="sub-menu">
           <a href="javascript:;" >
             <i class="fa fa-desktop"></i>
             <span>UI Elements</span>
@@ -117,7 +194,6 @@ MAIN CONTENT
             <li><a  href="panels.html">Panels</a></li>
           </ul>
         </li>
-
         <li class="sub-menu">
           <a href="javascript:;" >
             <i class="fa fa-cogs"></i>
@@ -170,15 +246,10 @@ MAIN CONTENT
           </ul>
         </li>
 
-      </ul>
-      <!-- sidebar menu end-->
-    </div>
-  </aside>
-  <!--sidebar end-->
-
 </template>
 
 <template name="settingsDropdown">
+
         <li class="dropdown">
           <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
             <i class="fa fa-tasks"></i>

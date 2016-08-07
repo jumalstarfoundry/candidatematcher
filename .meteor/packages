@@ -25,3 +25,5 @@ chart:chart
 accounts-password
 useraccounts:bootstrap
 kadira:flow-router
+kadira:blaze-layout
+useraccounts:flow-routing
