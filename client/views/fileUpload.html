@@ -9,6 +9,9 @@
           <h5>DROPBOX STATICS</h5>
         </div>
 
+        {{> upload}}
+        {{> candidateOutput}}
+        
         <p>April 17, 2014</p>
         {{>boxFooter}}
       </div><!-- /darkblue panel -->
@@ -25,4 +28,32 @@
       <h5>60% Used</h5>
     </div>
   </footer>
+</template>
+
+
+
+<template name="upload">
+  <h4 class="page-header">Upload a CSV</h4>
+
+         {{#if currentUser}}
+           {{#unless uploading}}
+            <input type="file" name="uploadCSV">
+            {{else}}
+            <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
+            {{/unless}}
+         {{/if}}
+</template>
+
+
+<template name ="candidateOutput">
+        {{#if currentUser}}
+  <p>display values here, so far it looks like the upload is only accessible by logging in.
+    <br>csv values are displaying here, not very elegant or versatile but it works for files that have the expression helpers
+    <br> once user logs out, the values don't show and the upload template disappears.
+    <br> how does it look?
+  </p>
+  {{#each candidate}}
+   {{First_Name}} {{date}} {{product}} {{paymentType}}
+   {{/each}}
+         {{/if}}
 </template>
