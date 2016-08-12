@@ -1,16 +1,22 @@
 <template name="fileUpload">
 
-        <div class="darkblue-header">
-          <h5 class="page-header">Upload a CSV</h5>
-        </div>
+  <div class="darkblue-header">
+    <h5 class="page-header">Upload a CSV</h5>
+  </div>
+  
+          <h4>Directions</h4>
+          <p>Upload candidates here. Doing so will replace any candidates already in the system.</p>
 
-        {{> upload}}
-        {{> candidateOutput}}
-        
-        <p>April 17, 2014</p>
-        {{>boxFooter}}
-        
-      
+  <section id="main-content">
+    <section class="wrapper">
+      <div class="row">
+        <div class="col-lg-9">
+          {{> upload}}
+        </div><!-- /col-lg-9 END SECTION MIDDLE -->
+      </div><!--/row -->
+    </section>
+  </section>
+
 </template>
 
 <template name="boxFooter">
@@ -29,22 +35,22 @@
 <template name="upload">
 
 
-         {{#if currentUser}}
-           {{#unless uploading}}
-            <input type="file" name="uploadCSV">
-            {{else}}
-            <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
-            {{/unless}}
-         {{/if}}
+  {{#if currentUser}}
+  {{#unless uploading}}
+  <input type="file" name="uploadCSV">
+  {{else}}
+  <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
+  {{/unless}}
+  {{/if}}
 </template>
 
 
 <template name ="candidateOutput">
-        {{#if currentUser}}
+  {{#if currentUser}}
   <p>display values here
   </p>
   {{#each candidate}}
-   {{First_Name}} {{date}} {{product}} {{paymentType}}
-   {{/each}}
-         {{/if}}
+  {{First_Name}} {{date}} {{product}} {{paymentType}}
+  {{/each}}
+  {{/if}}
 </template>

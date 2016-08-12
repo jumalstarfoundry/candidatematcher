@@ -1,0 +1,25 @@
+<template name="manageSites">
+  <div class="darkblue-header">
+    <h5 class="page-header">Manage Sites</h5>
+  </div>
+{{> tabular table=TabularTables.Sites class="table table-striped table-bordered table-condensed"}}
+
+
+</template>
+
+<template name="addSite">
+
+  <div class="darkblue-header">
+    <h5 class="page-header">Add a Site</h5>
+  </div>
+  {{> quickForm collection="Sites" id="insertSitesForm" type="insert" style="padding: 45px;"}}
+</template>
+
+
+<template name="editSite">
+
+  <div class="darkblue-header">
+    <h5 class="page-header">EditSite</h5>
+  </div>
+  {{> quickForm collection="Sites" doc=this id="updateSitesForm" type="update" style="padding: 45px;"}}
+</template>
