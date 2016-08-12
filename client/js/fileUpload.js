@@ -19,11 +19,14 @@ Template.upload.events({
     Papa.parse( event.target.files[0], {
       header: true,
       complete( results, file ) {
+        sAlert.success('Upload starting...', undefined); // https://atmospherejs.com/juliancwirko/s-alert
+
         Meteor.call( 'parseUpload', results.data, ( error, response ) => {
           if ( error ) {
             console.log( error.reason );
           } else {
             template.uploading.set( false );
+            
             //Bert.alert( 'Upload complete!', 'success', 'growl-top-right' );
             console.log("upload succeeded");
             sAlert.success('Upload complete!', undefined); // https://atmospherejs.com/juliancwirko/s-alert

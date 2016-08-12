@@ -9,18 +9,21 @@ Meteor.methods({
   parseUpload( data ) {
     check( data, Array );
 
+    Candidates.remove({});
     for ( let i = 0; i < data.length; i++ ) {
       let item   = data[ i ],
           firstNameLookupKey = "First Name",
           firstNameLookupValue = item["First Name"],
           lastNameLookupKey = "Last Name",
-          lastNameLookupValue = item["Last Name"],
-          exists = Candidates.findOne( { firstNameLookupKey: firstNameLookupValue, lastNameLookupKey: lastNameLookupValue  } );
+          lastNameLookupValue = item["Last Name"];
+         // exists = Candidates.findOne( { firstNameLookupKey: firstNameLookupValue, lastNameLookupKey: lastNameLookupValue  } );
 
         //console.log("item, key, val, exists are: ", item, lookupKey, lookupValue, exists);
 
       // If this row has not been inserted, and it has a firstname and lastName
-      if ( !exists && firstNameLookupValue && lastNameLookupValue) {
+
+     // if ( !exists && firstNameLookupValue && lastNameLookupValue) {
+      if ( firstNameLookupValue && lastNameLookupValue) {
 
         /*
         // if there is no entry for site, add it as a blank item
@@ -38,8 +41,9 @@ Meteor.methods({
           */
         Candidates.insert( item );
       } else {
-        console.warn( 'Rejected. This item already exists.' );
+        console.warn( 'Row upload rejected. This item does not have a first name or last name.' );
       }
+
     }
   }
 });

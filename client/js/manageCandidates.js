@@ -27,11 +27,16 @@ Template.manageCandidates.events({
   "click #autoMatch": function() {
 
     // Loop through candidates
-    var unassignedCandidates = Candidates.find({prioritySite:{ $exists: true}}); // toggle switch
+    var unassignedCandidates = Candidates.find({prioritySite:{ $exists: false}}); // toggle switch
+
+    sAlert.success('Auto-match starting... !', undefined); // https://atmospherejs.com/juliancwirko/s-alert
 
     unassignedCandidates.forEach(function (candidate) {
       Candidates.update(candidate._id, {$set: { prioritySite: findSite(candidate), priorityShift: findShift(candidate) }});
     });
+    
+    sAlert.success('Auto-match complete!', undefined); // https://atmospherejs.com/juliancwirko/s-alert
+
 
 
   }
