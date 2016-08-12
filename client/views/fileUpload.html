@@ -1,12 +1,7 @@
 <template name="fileUpload">
-  <div class="row mtbox">
-    <div class="col-md-8 col-md-offset-4 box0" style="
-                                                      padding-top: 15px;
-                                                      padding-bottom: 15px;
-                                                      ">
-      <div class="darkblue-panel pn">
+
         <div class="darkblue-header">
-          <h5>DROPBOX STATICS</h5>
+          <h5 class="page-header">Upload a CSV</h5>
         </div>
 
         {{> upload}}
@@ -14,9 +9,8 @@
         
         <p>April 17, 2014</p>
         {{>boxFooter}}
-      </div><!-- /darkblue panel -->
-    </div><!-- /col-md-4 -->
-  </div><!-- /row mt -->
+        
+      
 </template>
 
 <template name="boxFooter">
@@ -33,7 +27,7 @@
 
 
 <template name="upload">
-  <h4 class="page-header">Upload a CSV</h4>
+
 
          {{#if currentUser}}
            {{#unless uploading}}
@@ -47,10 +41,7 @@
 
 <template name ="candidateOutput">
         {{#if currentUser}}
-  <p>display values here, so far it looks like the upload is only accessible by logging in.
-    <br>csv values are displaying here, not very elegant or versatile but it works for files that have the expression helpers
-    <br> once user logs out, the values don't show and the upload template disappears.
-    <br> how does it look?
+  <p>display values here
   </p>
   {{#each candidate}}
    {{First_Name}} {{date}} {{product}} {{paymentType}}

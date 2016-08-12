@@ -18,9 +18,18 @@
        {{> sideBar}}
 
        {{> sAlert}}
-       
-       {{> Template.dynamic template=mainContent}}
-
+       <div class="row mtbox">
+         <div class="col-md-2">
+         </div>
+         <div class="col-md-8 box0" style="
+                                                           padding-top: 15px;
+                                                           padding-bottom: 15px;
+                                                           ">
+           <div class="darkblue-panel pn" style="height: 550px;">
+             {{> Template.dynamic template=mainContent}}
+           </div><!-- /darkblue panel -->
+         </div><!-- /col-md-4 -->
+       </div><!-- /row mt -->
        {{> siteFooter}}
 
       </section>
@@ -107,7 +116,7 @@
 
 
 <template name="topBar">
-  <header class="header black-bg">
+  <header class="header black-bg" style="top: 0px;">
     <!--
 <div class="sidebar-toggle-box">
 <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
@@ -146,7 +155,7 @@
 <template name="sideBar">
   <!--sidebar start-->
   <aside>
-    <div id="sidebar"  class="nav-collapse ">
+    <div id="sidebar"  class="nav-collapse " style="top: 0px;">
       <!-- sidebar menu start-->
       <ul class="sidebar-menu" id="nav-accordion">
 
@@ -164,13 +173,21 @@
         </p>
         <h5 class="centered">{{userName}}</h5>
 
+
         <li class="mt">
 <!--
 <a class="active" href="index.html">
 -->
           <a href="fileUpload">
-            <i class="fa fa-dashboard"></i>
+            <i class="fa fa-upload"></i>
             <span>Candidates Upload</span>
+          </a>
+        </li>
+
+        <li >
+          <a href="manageSites">
+            <i class="fa fa-home"></i>
+            <span>Manage Sites</span>
           </a>
         </li>
 
