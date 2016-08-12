@@ -1,16 +1,18 @@
-<template name="manageSites">
+<template name="manageCandidates">
   <div class="col-md-8" style="
                                padding-top: 15px;
                                padding-bottom: 15px;
                                ">
     <div class="" style="height: 550px;width: 1000px;padding-right: 25px;padding-left: 25px;">
       <div class="darkblue-header">
-        <h2 class="page-header">Manage Sites</h2>
-        <a class="btn-info btn" href="/addSite">Add Site</a>
+        <h2 class="page-header">Manage Candidates</h2>
+
+        <a class="btn-primary btn" href="/addCandidate">Add Candidate</a>
+        <button id="autoMatch" class="btn-primary btn">Auto Match Candidates</button>
       </div>
 
       <div class="container row" style="margin-top: 50px;">
-        {{> tabular table=TabularTables.Sites class="table table-striped table-bordered table-condensed"}}
+        {{> tabular table=TabularTables.Candidates class="table table-striped table-bordered table-condensed"}}
       </div>
     </div><!-- /darkblue panel -->
   </div><!-- /col-md-4 -->
@@ -18,36 +20,34 @@
 
 </template>
 
-<template name="addSite">
+<template name="addCandidate">
  <div class="col-md-8" style="
                                padding-top: 15px;
                                padding-bottom: 15px;
                                ">
     <div class="" style="height: 550px;width: 1000px;padding-right: 25px;padding-left: 25px;">
   <div class="darkblue-header">
-    <h5 class="page-header">Add a Site</h5>
+    <h2 class="page-header">Add a Candidate</h2>
   </div>
-  {{> quickForm collection="Sites" id="insertSitesForm" type="insert" style="padding: 45px;"}}
+  {{> quickForm collection="Candidates" id="insertCandidatesForm" type="insert" style="padding: 45px;"}}
    </div>
   </div>
 </template>
 
-<template name="editSiteButton">
-  <a class="btn-info btn" href="/editSite/{{_id}}">Edit Site</a>
-  <a class="btn-info btn" href="/manageShift/{{_id}}"> Shifts > </a>
+<template name="editCandidateButton">
+  <a class="btn-info btn" href="/editCandidate/{{_id}}">Edit Details</a>
 </template>
 
-<template name="editSite">
+<template name="editCandidate">
   <div class="col-md-8" style="
                                padding-top: 15px;
                                padding-bottom: 15px;
                                ">
     <div class="" style="height: 550px;width: 1000px;padding-right: 25px;padding-left: 25px;">
       <div class="darkblue-header">
-        <h5 class="page-header">EditSite</h5>
+        <h2 class="page-header">Edit Candidate</h2>
       </div>
-      {{> quickForm collection="Sites" doc=currentSite id="updateSitesForm" type="update" style="padding: 45px;"}}
+      {{> quickForm collection="Candidates" doc=currentCandidate id="updateCandidatesForm" type="update" style="padding: 45px;"}}
     </div>
   </div>
-
 </template>

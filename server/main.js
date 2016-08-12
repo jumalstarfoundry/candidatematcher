@@ -21,6 +21,21 @@ Meteor.methods({
 
       // If this row has not been inserted, and it has a firstname and lastName
       if ( !exists && firstNameLookupValue && lastNameLookupValue) {
+
+        /*
+        // if there is no entry for site, add it as a blank item
+        //
+        if (!item.prioritySite)
+          {
+            item.prioritySite = "";
+          }
+        // if there is no entry for slot, add it
+        //
+        if (!item.priorityShift)
+          {
+            item.priorityShift = "";
+          }
+          */
         Candidates.insert( item );
       } else {
         console.warn( 'Rejected. This item already exists.' );
