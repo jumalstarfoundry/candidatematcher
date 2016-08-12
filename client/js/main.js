@@ -36,7 +36,7 @@ Meteor.startup(function () {
 
 });
 Template.topBar.events({
-	'click .logout': function(event){
+	'click #logoutLink ': function(event){
 		event.preventDefault();
 		AccountsTemplates.logout();
 	}
