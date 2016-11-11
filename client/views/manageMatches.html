@@ -1,13 +1,13 @@
-<template name="manageCandidates">
+<template name="manageMatches">
   <div class="col-md-8" style="
                                padding-top: 15px;
                                padding-bottom: 15px;
                                ">
     <div class="" style="height: 550px;width: 1000px;padding-right: 25px;padding-left: 25px;">
       <div class="darkblue-header">
-        <h2 class="page-header">Manage Candidates</h2>
+        <h2 class="page-header">Manage Matches</h2>
 
-        <a class="btn-primary btn" href="/addCandidate">Add Candidate</a>
+        <a class="btn-primary btn" href="/addMatch">Add Match</a>
         <button id="autoMatch" class="btn-primary btn">Auto-Match Candidates</button>
         <button id="exportMatches" class="btn-primary btn">Export Matches</button>
         <a class="btn-primary btn" href="/fileUpload">Import Matches</a>
@@ -15,7 +15,7 @@
       </div>
 
       <div class="container row" style="margin-top: 50px;">
-        {{> tabular table=TabularTables.Candidates class="table table-striped table-bordered table-condensed"}}
+        {{> tabular table=TabularTables.Matches class="table table-striped table-bordered table-condensed"}}
       </div>
     </div><!-- /darkblue panel -->
   </div><!-- /col-md-4 -->
@@ -23,34 +23,34 @@
 
 </template>
 
-<template name="addCandidate">
+<template name="addMatch">
  <div class="col-md-8" style="
                                padding-top: 15px;
                                padding-bottom: 15px;
                                ">
     <div class="" style="height: 550px;width: 1000px;padding-right: 25px;padding-left: 25px;">
   <div class="darkblue-header">
-    <h2 class="page-header">Add a Candidate</h2>
+    <h2 class="page-header">Add a Match</h2>
   </div>
-  {{> quickForm collection="Candidates" id="insertCandidatesForm" type="insert" style="padding: 45px;"}}
+  {{> quickForm collection="Matches" id="insertMatchesForm" type="insert" style="padding: 45px;"}}
    </div>
   </div>
 </template>
 
-<template name="editCandidateButton">
-  <a class="btn-info btn" href="/editCandidate/{{_id}}">Edit Details</a>
+<template name="editMatchButton">
+  <a class="btn-info btn" href="/editMatch/{{_id}}">Edit Details</a>
 </template>
 
-<template name="editCandidate">
+<template name="editMatch">
   <div class="col-md-8" style="
                                padding-top: 15px;
                                padding-bottom: 15px;
                                ">
     <div class="" style="height: 550px;width: 1000px;padding-right: 25px;padding-left: 25px;">
       <div class="darkblue-header">
-        <h2 class="page-header">Edit Candidate</h2>
+        <h2 class="page-header">Edit Match</h2>
       </div>
-      {{> quickForm collection="Candidates" doc=currentCandidate id="updateCandidatesForm" type="update" style="padding: 45px;"}}
+      {{> quickForm collection="Matches" doc=currentMatch id="updateMatchesForm" type="update" style="padding: 45px;"}}
     </div>
   </div>
 </template>

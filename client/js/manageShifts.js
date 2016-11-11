@@ -4,7 +4,7 @@ import './../views/manageShifts.html';
 Template.editShift.helpers({
   currentShift: function() {
 
-    var currShift = Shifts.findOne({siteId:FlowRouter.getParam('siteId')});
+    var currShift = Shifts.findOne({_id:FlowRouter.getParam('shiftId')});
     console.log("The current Shift is", currShift);
 
     return currShift;
