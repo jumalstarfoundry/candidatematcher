@@ -34,11 +34,12 @@ var updateSiteFormHookObject = {
  
   onSuccess: function(formType, result) {
      
-    BlazeLayout.render("mainLayout", {mainContent: "manageSites"});
+    //BlazeLayout.render("mainLayout", {mainContent: "manageSites"});
   
+    FlowRouter.go("/manageSites");
     console.log(result)
-   // this.result(doc); 
-   return result;
+    // this.result(doc); 
+    //return result;
   },
 
   // Called when any submit operation fails
