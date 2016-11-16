@@ -3,5 +3,5 @@ DEVELOPMENT SETUP
 - Clone from github
 - Add npm packages
 
-meteor npm install --save babel-runtime
+meteor npm install --save babel-runtimen bcrypt
 

@@ -19,7 +19,7 @@
        </div>
       <div class="row mtbox">
 
-        <div class="container col-md-12">
+        <div class="container col-md-11 col-md-offset-1">
          {{> Template.dynamic template=mainContent}}
         </div>
        </div>
@@ -123,56 +123,38 @@
      <div class="col-md-3">
     <a href="/" class="logo"><b>Candidate Matcher</b></a>
     </div>
-    <div class="col-md-8">
-          <div class="nav notify-row" id="top_menu">
-      <!--  notification start -->
-      <ul class="nav top-menu">
- <li >
-          <a href="/manageCandidates">
-            <i class="fa fa-group"></i>
-            <span>Manage Candidates</span>
-          </a>
-        </li>
+      
+      <div class="nav top-menu col-md-5 col-md-offset-2">
+        <ul class="nav pull-right notify-row top-menu">
+          <li >
+             <a href="/manageCandidates">
+              <i class="fa fa-group"></i>
+              <span>Manage Candidates</span>
+            </a>
+          </li>
 
 
-        <li >
-          <a href="/manageSites">
-            <i class="fa fa-home"></i>
-            <span>Manage Sites</span>
-          </a>
-        </li>
-        
-       <!-- 
-        <li >
-          <a href="/manageMatches">
-            <i class="fa fa-fast-backward"></i>
-            <span>Manage Match Runs</span>
-          </a>
-        </li>
-        -->
-        <!-- settings start -->
-        <!--
-        {{> settingsDropdown }}
-        -->
-        <!-- settings end -->
-        <!-- inbox dropdown start-->
-        <!--
-        {{> inboxDropdown}}
-        -->
-        <!-- inbox dropdown end -->
-      </ul>
-        <!--notification end -->
-    </div>
-    <div class="top-menu">
-      <ul class="nav pull-right top-menu">
-        {{#if currentUser}}
-          <li><a id="logoutLink" class="logout">Logout</a></li>
-        {{else}}
-          <li><a id="loginLink" class="logout" href="/login">Login</a></li>
-        {{/if}}
+          <li >
+            <a href="/manageSites">
+              <i class="fa fa-home"></i>
+              <span>Manage Sites</span>
+            </a>
+          </li>
 
-      </ul>
-    </div>
+        </ul>
+      </div>  
+
+      <div class="nav top-menu col-md-1">
+
+        <ul class="nav pull-right top-menu">
+         
+          {{#if currentUser}}
+            <li><a id="logoutLink" class="logout">Logout</a></li>
+          {{else}}
+            <li><a id="loginLink" class="logout" href="/login">Login</a></li>
+          {{/if}}
+
+        </ul>
     </div>
    
     <!--logo end-->
