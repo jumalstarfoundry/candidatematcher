@@ -12,23 +12,36 @@
 
 <body>
 
-     <section id="container" >
-       {{> topBar}}
+  
+       <div class="row">
+         {{> topBar}}
+         {{> sAlert}}
+       </div>
+      <div class="row mtbox">
 
-       {{> sideBar}}
+        <div class="container col-md-12">
+         {{> Template.dynamic template=mainContent}}
+        </div>
+       </div>
 
-       {{> sAlert}}
+
+  <!--     
+  
+          <div class="col-md-3">
+        {{> sideBar}}
+        </div>
+        
+        
+      <section id="container" >
        <div class="row mtbox">
          <div class="col-md-2">
          </div>
 
-             {{> Template.dynamic template=mainContent}}
+         
 
-       </div><!-- /row mt -->
-
-
+       </div>
       </section>
-
+-->
 </body>
 </template>
 
@@ -42,14 +55,7 @@
      <div class="col-lg-9">
         <div class="row mtbox">
 
-
-          <div class="col-md-8 col-md-offset-4">
-
-
             {{> atForm}}
-          </div><!-- /col-md-8 -->
-
-
 
         </div><!-- /row mt -->
      </div><!-- /col-lg-9 END SECTION MIDDLE -->
@@ -65,20 +71,19 @@
 
 <template name="welcome">
 
-  <section id="welcome-content">
+  <section id="welcome-content" style="padding-top: 75px;">
 
-    <section class="col-md-offset-3">
+  
     <div class="row">
 
-     <div class="col-lg-9">
+     <div class="col-lg-offset-2 col-lg-9">
         <div class="row mtbox">
 
 
-          <div class="col-md-8 col-md-offset-4">
             <h2>
-            Welcome to the Mentor Candidate Matcher! Please click on the appropriate link on the left sidebar to continue.
+            Welcome to the Mentor Candidate Matcher! 
+            Please click on the appropriate section above to continue.
             </h2>
-          </div><!-- /col-md-8 -->
 
 
 
@@ -87,7 +92,6 @@
 
 
     </div><!--/row -->
-    </section>
 
 
   </section>
@@ -112,20 +116,39 @@
 
 
 <template name="topBar">
-  <header class="header black-bg" style="top: 0px;">
-    <!--
-<div class="sidebar-toggle-box">
-<div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-</div>
--->
-    <!--logo start-->
+  <header class="header black-bg" style="top: 0px; height:75px;padding-top:5px;">
+    <div class="col-md-1" style="text-align:right;">
+    {{> sideBar}}
+    </div>
+     <div class="col-md-2">
     <a href="/" class="logo"><b>Candidate Matcher</b></a>
-    <!--logo end-->
-
-    <div class="nav notify-row" id="top_menu">
+    </div>
+    <div class="col-md-9">
+          <div class="nav notify-row" id="top_menu">
       <!--  notification start -->
       <ul class="nav top-menu">
+ <li >
+          <a href="/manageCandidates">
+            <i class="fa fa-group"></i>
+            <span>Manage Candidates</span>
+          </a>
+        </li>
 
+
+        <li >
+          <a href="/manageSites">
+            <i class="fa fa-home"></i>
+            <span>Manage Sites</span>
+          </a>
+        </li>
+        
+        
+        <li >
+          <a href="/manageMatches">
+            <i class="fa fa-home"></i>
+            <span>Manage Matches</span>
+          </a>
+        </li>
         <!-- settings start -->
         <!--
         {{> settingsDropdown }}
@@ -149,6 +172,11 @@
 
       </ul>
     </div>
+    </div>
+   
+    <!--logo end-->
+
+
   </header>
 </template>
 

@@ -31,9 +31,14 @@ var updateSiteFormHookObject = {
 /////  },
 
   // Called when any submit operation succeeds
+ 
   onSuccess: function(formType, result) {
+     
     BlazeLayout.render("mainLayout", {mainContent: "manageSites"});
-    this.result(doc);
+  
+    console.log(result)
+   // this.result(doc); 
+   return result;
   },
 
   // Called when any submit operation fails
