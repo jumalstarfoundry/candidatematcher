@@ -81,3 +81,30 @@ AutoForm.hooks({
 */
 
 AutoForm.addHooks(['updateSitesForm', 'insertSitesForm'], updateSiteFormHookObject);
+
+
+var updateCandidateFormHookObject = {
+  onSuccess: function(formType, result) {
+    FlowRouter.go("/manageCandidates");
+  },
+};
+
+AutoForm.addHooks(['updateCandidatesForm', 'insertCandidatesForm'], updateCandidateFormHookObject);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
