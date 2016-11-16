@@ -23,12 +23,21 @@ findShift = function(doc){
   return shiftsArray[randomIndex]._id;
 
 }
+*/
 
+var canBePlaced = function(candidate, site, minimumNumberOfDays) {
+
+// For each day, compare candidate start and end times to site start and end times
+
+
+return true;
+} 
 
 Template.manageCandidates.events({
   "click #autoMatch": function() {
 
     // Loop through candidates
+ /*
     var unassignedCandidates = Candidates.find({prioritySite:{ $exists: false}}); // toggle switch
 
     sAlert.success('Auto-match starting... !', undefined); // https://atmospherejs.com/juliancwirko/s-alert
@@ -39,11 +48,46 @@ Template.manageCandidates.events({
     
     sAlert.success('Auto-match complete!', undefined); // https://atmospherejs.com/juliancwirko/s-alert
 
+*/
+
+   var unassignedCandidates = Candidates.find({prioritySite:{ $exists: false}}); // toggle switch
+   var availableSites = Sites.find();
+   var minDaysToBeAvailable = 2;
+
+
+    sAlert.success('Auto-match starting... !', undefined); // https://atmospherejs.com/juliancwirko/s-alert
+
+
+    unassignedCandidates.forEach(function (candidate) {
+        var candidatePlacementCount = 0;
+
+        availableSites.forEach(function (site){
+                                                  if (canBePlaced(candidate, site, minDaysToBeAvailable)){
+                                                      candidatePlacementCount++;
+                                                  }
+                                                }
+        );
+
+        // DEBUG
+        //
+        console.log("number of sites candidate can be placed is " + candidatePlacementCount);
+        if(candidatePlacementCount >= 1){
+          Candidates.update(candidate._id, {$set: { matchPriority: 1/candidatePlacementCount*1000+1000 }});
+          }
+        else
+        {
+          Candidates.update(candidate._id, {$set: { matchPriority: 999999999 }});
+        }
+    });
+ 
+
+  
+    sAlert.success('Auto-match complete!', undefined); // https://atmospherejs.com/juliancwirko/s-alert
 
 
   }
 });
-*/
+
 Template.editCandidate.helpers({
   currentCandidate: function() {
 
