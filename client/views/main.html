@@ -17,7 +17,7 @@
          {{> topBar}}
          {{> sAlert}}
        </div>
-      <div class="row mtbox">
+      <div id="mainContainer" class="row mtbox">
 
         <div class="container col-md-11 col-md-offset-1">
          {{> Template.dynamic template=mainContent}}
@@ -116,16 +116,17 @@
 
 
 <template name="topBar">
-  <header class="header black-bg" style="top: 0px; height:75px;padding-top:5px;">
-    <div class="col-md-1" style="text-align:right;">
+  <header class=" header black-bg" style="top: 0px; height:75px;padding-top:5px;">
+    <div id="imageDiv" class="col-md-1" style="text-align:right;">
     {{> sideBar}}
     </div>
      <div class="col-md-3">
     <a href="/" class="logo"><b>Candidate Matcher</b></a>
     </div>
-      
-      <div class="nav top-menu col-md-5 col-md-offset-2">
-        <ul class="nav pull-right notify-row top-menu">
+      <div id="navbarSeparator" class="col-md-2">
+      </div>
+      <div id="navButtonsDiv" class="nav top-menu col-md-5">
+        <ul id="navButtons" class="nav pull-right notify-row top-menu">
           <li >
              <a href="/manageCandidates">
               <i class="fa fa-group"></i>

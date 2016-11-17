@@ -28,7 +28,20 @@ findShift = function(doc){
 var canBePlaced = function(candidate, site, minimumNumberOfDays) {
 
 // For each day, compare candidate start and end times to site start and end times
+var availableNumberOfDays = 0;
 
+// Check Monday schedule
+if ((candidate['Monday Start Time'] >= site.mondayStart) && (candidate['Monday End Time'] < site.mondayEnd)) {
+  availableNumberOfDays++;
+}
+
+// Check Tuesday schedule
+
+// Check Wednesday schedule
+
+// Check Thursday schedule
+
+// Check Friday schedule
 
 return true;
 } 

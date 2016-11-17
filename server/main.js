@@ -39,6 +39,62 @@ Meteor.methods({
             item.priorityShift = "";
           }
           */
+
+        if (item['Monday Start Time'] == "Not Available") 
+        {
+          item['Monday Start Time'] = "";
+          item['Monday End Time'] = "";
+        }
+        else
+        {
+          item['Monday Start Time'] = moment(item['Monday Start Time'],"H:mma").format("HH:mm");
+          item['Monday End Time'] = moment(item['Monday Start Time'],"H:mma").format("HH:mm");
+        } 
+
+        if (item['Tuesday Start Time'] == "Not Available") 
+        {
+          item['Tuesday Start Time'] = "";
+          item['Tuesday End Time'] = "";
+        } 
+        else
+        {
+          item['Tuesday Start Time'] = moment(item['Tuesday Start Time'],"H:mma").format("HH:mm");
+          item['Tuesday End Time'] = moment(item['Tuesday Start Time'],"H:mma").format("HH:mm");
+        } 
+
+        if (item['Wednesday Start Time'] == "Not Available") 
+        {
+          item['Wednesday Start Time'] = "";
+          item['Wednesday End Time'] = "";
+        } 
+        else
+        {
+          item['Wednesday Start Time'] = moment(item['Wednesday Start Time'],"H:mma").format("HH:mm");
+          item['Wednesday End Time'] = moment(item['Wednesday Start Time'],"H:mma").format("HH:mm");
+        } 
+
+        if (item['Thursday Start Time'] == "Not Available") 
+        {
+          item['Thursday Start Time'] = "";
+          item['Thursday End Time'] = "";
+        } 
+        else
+        {
+          item['Thursday Start Time'] = moment(item['Thursday Start Time'],"H:mma").format("HH:mm");
+          item['Thursday End Time'] = moment(item['Thursday Start Time'],"H:mma").format("HH:mm");
+        } 
+
+        if (item['Friday Start Time'] == "Not Available") 
+        {
+          item['Friday Start Time'] = "";
+          item['Friday End Time'] = "";
+        } 
+        else
+        {
+          item['Friday Start Time'] = moment(item['Friday Start Time'],"H:mma").format("HH:mm");
+          item['Friday End Time'] = moment(item['Friday Start Time'],"H:mma").format("HH:mm");
+        } 
+
         Candidates.insert( item );
       } else {
         console.warn( 'Row upload rejected. This item does not have a first name or last name.' );
