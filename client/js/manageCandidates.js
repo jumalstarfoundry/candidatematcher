@@ -27,24 +27,63 @@ findShift = function(doc){
 
 var canBePlaced = function(candidate, site, minimumNumberOfDays) {
 
-// For each day, compare candidate start and end times to site start and end times
-var availableNumberOfDays = 0;
+    // For each day, compare candidate start and end times to site start and end times
+    var availableNumberOfDays = 0;
+    var candidateStartTime, candidateEndTime;
+    var siteStartTime, siteEndTime;
 
-// Check Monday schedule
-if ((candidate['Monday Start Time'] >= site.mondayStart) && (candidate['Monday End Time'] < site.mondayEnd)) {
-  availableNumberOfDays++;
-}
+    var candidateMatchesWithSite = function(day, candidateToCheck, siteToCheck)
+      {
+          candidateStartTime = candidateToCheck[day.charAt(0).toUpperCase() + day.substr(1) + " Start Time"];
+          candidateEndTime = candidateToCheck[day.charAt(0).toUpperCase() + day.substr(1) + " End Time"];
+          siteStartTime = siteToCheck[day.charAt(0).toLowerCase() + day.substr(1) + "Start"];
+          siteEndTime = siteToCheck[day.charAt(0).toLowerCase() + day.substr(1) + "End"];
 
-// Check Tuesday schedule
+        const minimumMillsecondsToWork = 3600000; // 1 hour
+        var candidateCanShowUpBeforeClosing = moment(siteEndTime, "HH:mm").diff(moment(candidateStartTime, "HH:mm")) >= 0;
+        var candidateCanLeaveAfterOpening =  moment(candidateEndTime, "HH:mm").diff(moment(siteStartTime, "HH:mm")) >= 0;
+        var timeAvailableForWork = moment(candidateEndTime, "HH:mm").diff(moment(candidateStartTime, "HH:mm"));
 
-// Check Wednesday schedule
+        console.log(candidate["First Name"] + " " + candidate["Last Name"] + " can show up before closing: ", candidateCanShowUpBeforeClosing);
+        console.log(candidate["First Name"] + " " + candidate["Last Name"] + " can leave after opening: ", candidateCanLeaveAfterOpening);
+        
+        return candidateCanShowUpBeforeClosing && candidateCanLeaveAfterOpening && (timeAvailableForWork >= minimumMillsecondsToWork);
 
-// Check Thursday schedule
+      }
 
-// Check Friday schedule
+      if(candidateMatchesWithSite("Monday", candidate, site))
+      {
+        availableNumberOfDays++;
+      }
 
-return true;
-} 
+      if(candidateMatchesWithSite("Tuesday", candidate, site))
+      {
+        availableNumberOfDays++;
+      }  
+
+      if(candidateMatchesWithSite("Wednesday", candidate, site))
+      {
+        availableNumberOfDays++;
+      }  
+
+      if(candidateMatchesWithSite("Thursday", candidate, site))
+      {
+        availableNumberOfDays++;
+      }  
+
+      if(candidateMatchesWithSite("Friday", candidate, site))
+      {
+        availableNumberOfDays++;
+      }  
+
+      console.log("available number of days is ", availableNumberOfDays);
+
+return availableNumberOfDays >= minimumNumberOfDays;
+
+};
+
+
+ 
 
 Template.manageCandidates.events({
   "click #autoMatch": function() {
@@ -84,9 +123,14 @@ Template.manageCandidates.events({
         // DEBUG
         //
         console.log("number of sites candidate can be placed is " + candidatePlacementCount);
+
+        // If this candidate can be placed somewhere, then we can assign them a match priority. 
+        //
         if(candidatePlacementCount >= 1){
           Candidates.update(candidate._id, {$set: { matchPriority: 1/candidatePlacementCount*1000+1000 }});
           }
+        // Otherwise, there are no sites we can find for them, so we mark them as unmactched
+        //
         else
         {
           Candidates.update(candidate._id, {$set: { matchPriority: 999999999 }});

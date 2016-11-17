@@ -36,7 +36,7 @@
 
 <template name="editSiteButton">
   <a class="btn-info btn" href="/editSite/{{_id}}">Edit Site</a>
-  <a class="btn-info btn" href="/manageShift/{{_id}}"> Shifts > </a>
+  <!--<a class="btn-info btn" href="/manageShift/{{_id}}"> Shifts > </a>-->
 </template>
 
 <template name="editSite">
@@ -46,9 +46,10 @@
                                ">
     <div class="" style="height: 550px;width: 1000px;padding-right: 25px;padding-left: 25px;">
       <div class="darkblue-header">
-        <h5 class="page-header">EditSite</h5>
+        <h3 class="page-header">Edit Site</h3>
       </div>
       {{> quickForm collection="Sites" doc=currentSite id="updateSitesForm" type="update" style="padding: 45px;"}}
+      <a href="/manageSites" class="btn btn-info">Cancel</a>
     </div>
   </div>
 

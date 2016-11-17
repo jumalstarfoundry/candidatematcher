@@ -48,7 +48,7 @@ Meteor.methods({
         else
         {
           item['Monday Start Time'] = moment(item['Monday Start Time'],"H:mma").format("HH:mm");
-          item['Monday End Time'] = moment(item['Monday Start Time'],"H:mma").format("HH:mm");
+          item['Monday End Time'] = moment(item['Monday End Time'],"H:mma").format("HH:mm");
         } 
 
         if (item['Tuesday Start Time'] == "Not Available") 
@@ -59,7 +59,7 @@ Meteor.methods({
         else
         {
           item['Tuesday Start Time'] = moment(item['Tuesday Start Time'],"H:mma").format("HH:mm");
-          item['Tuesday End Time'] = moment(item['Tuesday Start Time'],"H:mma").format("HH:mm");
+          item['Tuesday End Time'] = moment(item['Tuesday End Time'],"H:mma").format("HH:mm");
         } 
 
         if (item['Wednesday Start Time'] == "Not Available") 
@@ -70,7 +70,7 @@ Meteor.methods({
         else
         {
           item['Wednesday Start Time'] = moment(item['Wednesday Start Time'],"H:mma").format("HH:mm");
-          item['Wednesday End Time'] = moment(item['Wednesday Start Time'],"H:mma").format("HH:mm");
+          item['Wednesday End Time'] = moment(item['Wednesday End Time'],"H:mma").format("HH:mm");
         } 
 
         if (item['Thursday Start Time'] == "Not Available") 
@@ -81,7 +81,7 @@ Meteor.methods({
         else
         {
           item['Thursday Start Time'] = moment(item['Thursday Start Time'],"H:mma").format("HH:mm");
-          item['Thursday End Time'] = moment(item['Thursday Start Time'],"H:mma").format("HH:mm");
+          item['Thursday End Time'] = moment(item['Thursday End Time'],"H:mma").format("HH:mm");
         } 
 
         if (item['Friday Start Time'] == "Not Available") 
@@ -92,7 +92,7 @@ Meteor.methods({
         else
         {
           item['Friday Start Time'] = moment(item['Friday Start Time'],"H:mma").format("HH:mm");
-          item['Friday End Time'] = moment(item['Friday Start Time'],"H:mma").format("HH:mm");
+          item['Friday End Time'] = moment(item['Friday End Time'],"H:mma").format("HH:mm");
         } 
 
         Candidates.insert( item );
