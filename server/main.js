@@ -94,6 +94,37 @@ Meteor.methods({
           item['Friday Start Time'] = moment(item['Friday Start Time'],"H:mma").format("HH:mm");
           item['Friday End Time'] = moment(item['Friday End Time'],"H:mma").format("HH:mm");
         } 
+/*
+        let candidateToInsert = {}
+
+        candidateToInsert["First Name"] = item["First Name"];
+        candidateToInsert["Last Name"] = item["Last Name"];
+        candidateToInsert["Position_Site_Preference1"] = item["Position_Site_Preference1"];
+        candidateToInsert["Position_Site_Preference2"] = item["Position_Site_Preference2"];
+        candidateToInsert["Position_Site_Preference3"] = item["Position_Site_Preference3"];
+        candidateToInsert["Preferred Volunteer Status"] = item["Preferred Volunteer Status"];
+        candidateToInsert["Number of Days to Work"] = item["Number of Days to Work"];
+        candidateToInsert["Monday Start Time"] = item["Monday Start Time"];
+        candidateToInsert["Monday End Time"] = item["Monday End Time"];
+        candidateToInsert["Tuesday Start Time"] = item["Tuesday Start Time"];
+        candidateToInsert["Tuesday End Time"] = item["Tuesday End Time"];
+        candidateToInsert["Wednesday Start Time"] = item["Wednesday Start Time"];
+        candidateToInsert["Wednesday End Time"] = item["Wednesday End Time"];
+        candidateToInsert["Thursday Start Time"] = item["Thursday Start Time"];
+        candidateToInsert["Thursday End Time"] = item["Thursday End Time"];
+        candidateToInsert["Friday Start Time"] = item["Friday Start Time"];
+        candidateToInsert["Friday End Time"] = item["Friday End Time"];
+        candidateToInsert["Returning Tutor"] = item["Returning Tutor?"];
+        candidateToInsert["Access to Car"] = item["Access to Car"];
+        candidateToInsert["Willing to Travel"] = item["Willing to Travel?"];
+        candidateToInsert["Languages Spoken"] = item["Languages Spoken"];
+        candidateToInsert["Age Group Preference"] = item["Age Group Preference"];
+        candidateToInsert["Graduation Year"] = item["Graduation Year"];
+*/
+
+        
+
+
 
         Candidates.insert( item );
       } else {
@@ -113,3 +144,6 @@ Meteor.methods({
   }
 }); */
 /*lines 25-30, added this method to publish Candidates collection on the houston admin. still not sure exactly that this did. after commenting these lines out, reseting meteor, uploading the csv again and then opening the houston admin, the "candidateInfo_fromCSV" collection displays--but only the first row. none of the values from rows after the first ones are displaying. just a note, but not sure if this was even on the right path. *bél* */
+
+
+
