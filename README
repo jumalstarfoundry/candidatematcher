@@ -3,4 +3,4 @@ DEVELOPMENT SETUP
 - Clone from github
 - Add npm packages
 
-meteor npm install --save babel-runtime bcrypt
+meteor npm install --save babel-runtime bcryptn underscore
