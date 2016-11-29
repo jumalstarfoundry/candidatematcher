@@ -1,4 +1,4 @@
-<template name="fileUpload">
+<template name="candidatesFileUpload">
          <div class="col-md-8 box0" style="
                                                            padding-top: 15px;
                                                            padding-bottom: 15px;
@@ -15,7 +15,7 @@
     <section class="wrapper">
       <div class="row">
         <div class="col-lg-9">
-          {{> upload}}
+          {{> candidateUpload}}
         </div><!-- /col-lg-9 END SECTION MIDDLE -->
       </div><!--/row -->
     </section>
@@ -37,7 +37,7 @@
 
 
 
-<template name="upload">
+<template name="candidateUpload">
 
 
   {{#if currentUser}}
@@ -49,13 +49,3 @@
   {{/if}}
 </template>
 
-
-<template name ="candidateOutput">
-  {{#if currentUser}}
-  <p>display values here
-  </p>
-  {{#each candidate}}
-  {{First_Name}} {{date}} {{product}} {{paymentType}}
-  {{/each}}
-  {{/if}}
-</template>

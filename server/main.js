@@ -6,7 +6,7 @@ Meteor.startup(() => {
 
 
 Meteor.methods({
-  parseUpload( data ) {
+  parseCandidatesUpload( data ) {
     check( data, Array );
 
     Candidates.remove({});
@@ -129,6 +129,80 @@ Meteor.methods({
         Candidates.insert( item );
       } else {
         console.warn( 'Row upload rejected. This item does not have a first name or last name.' );
+      }
+
+    }
+  },
+   parseSitesUpload( data ) {
+    check( data, Array );
+
+    Sites.remove({});
+
+    for ( let i = 0; i < data.length; i++ ) {
+      let item   = data[ i ];
+      let itemIsValidSite = true; // Later on, can check to see if the item is a valid site
+
+      if ( itemIsValidSite ) {
+
+        if (item['Mon Start Time'] == "") 
+        {
+          item['Mon Start Time'] = "";
+          item['Mon End Time'] = "";
+        }
+        else
+        {
+          item['Mon Start Time'] = moment(item['Mon Start Time'],"H:mma").format("HH:mm");
+          item['Mon End Time'] = moment(item['Mon End Time'],"H:mma").format("HH:mm");
+        } 
+
+        if (item['Tues Start Time'] == "") 
+        {
+          item['Tues Start Time'] = "";
+          item['Tues End Time'] = "";
+        } 
+        else
+        {
+          item['Tues Start Time'] = moment(item['Tues Start Time'],"H:mma").format("HH:mm");
+          item['Tues End Time'] = moment(item['Tues End Time'],"H:mma").format("HH:mm");
+        } 
+
+        if (item['Wed Start Time'] == "") 
+        {
+          item['Wed Start Time'] = "";
+          item['Wed End Time'] = "";
+        } 
+        else
+        {
+          item['Wed Start Time'] = moment(item['Wed Start Time'],"H:mma").format("HH:mm");
+          item['Wed End Time'] = moment(item['Wed End Time'],"H:mma").format("HH:mm");
+        } 
+
+        if (item['Thur Start Time'] == "") 
+        {
+          item['Thur Start Time'] = "";
+          item['Thur End Time'] = "";
+        } 
+        else
+        {
+          item['Thur Start Time'] = moment(item['Thur Start Time'],"H:mma").format("HH:mm");
+          item['Thur End Time'] = moment(item['Thur End Time'],"H:mma").format("HH:mm");
+        } 
+
+        if (item['Fri Start Time'] == "") 
+        {
+          item['Fri Start Time'] = "";
+          item['Fri End Time'] = "";
+        } 
+        else
+        {
+          item['Fri Start Time'] = moment(item['Fri Start Time'],"H:mma").format("HH:mm");
+          item['Fri End Time'] = moment(item['Fri End Time'],"H:mma").format("HH:mm");
+        } 
+        
+
+        Sites.insert( item );
+      } else {
+        console.warn( 'Row upload rejected... Site does not conform to our rules for a valid site' );
       }
 
     }

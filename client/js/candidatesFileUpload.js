@@ -1,19 +1,19 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import './../views/fileUpload.html';
+import './../views/candidatesFileUpload.html';
 
 
-Template.upload.onCreated( () => {
+Template.candidateUpload.onCreated( () => {
   Template.instance().uploading = new ReactiveVar( false );
 });
 
-Template.upload.helpers({
+Template.candidateUpload.helpers({
   uploading() {
     return Template.instance().uploading.get();
   }
 });
 
-Template.upload.events({
+Template.candidateUpload.events({
   'change [name="uploadCSV"]' ( event, template ) {
 
     Papa.parse( event.target.files[0], {
@@ -21,7 +21,7 @@ Template.upload.events({
       complete( results, file ) {
         sAlert.success('Upload starting...', undefined); // https://atmospherejs.com/juliancwirko/s-alert
 
-        Meteor.call( 'parseUpload', results.data, ( error, response ) => {
+        Meteor.call( 'parseCandidatesUpload', results.data, ( error, response ) => {
           if ( error ) {
             console.log( error.reason );
           } else {
@@ -35,12 +35,6 @@ Template.upload.events({
         });
       }
     });
-  }
-});
-//new code starts here, in case you need to work from a place from where it works
-Template.candidateOutput.helpers({
-  candidate:function(){
-    return Candidates.find();
   }
 });
 

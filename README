@@ -4,3 +4,12 @@ DEVELOPMENT SETUP
 - Add npm packages
 
 meteor npm install --save babel-runtime bcryptn underscore
+
+To clean:
+- Uninstall meteor
+- Reinstall meteor
+- meteor rebuild
+- meteor reset
+- meteor npm install
+- add packages: 
+meteor add fortawesome:fontawesome twbs:bootstrap chart:chart accounts-password@1.3.2 useraccounts:bootstrap kadira:flow-router kadira:blaze-layout useraccounts:flow-routing harrison:papa-parse check@1.2.4 juliancwirko:s-alert-slide msavin:mongol aldeed:collection2 dburles:collection-helpers alanning:roles aldeed:autoform aldeed:tabular session@1.1.7 mpowaga:autoform-summernote jeremy:selectize jamiecollinson:selectize-bootstrap comerc:autoform-selectize shell-server momentjs:moment

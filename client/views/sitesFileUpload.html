@@ -1,0 +1,52 @@
+<template name="sitesFileUpload">
+         <div class="col-md-8 box0" style="
+                                                           padding-top: 15px;
+                                                           padding-bottom: 15px;
+                                                           ">
+           <div class="darkblue-panel pn" style="height: 550px;width: 1000px;padding-right: 25px;padding-left: 25px;">
+  <div class="darkblue-header">
+    <h5 class="page-header">Upload a CSV</h5>
+  </div>
+
+          <h4>Directions</h4>
+          <p>Upload candidates here. Doing so will replace any candidates already in the system.</p>
+
+  <section id="main-content">
+    <section class="wrapper">
+      <div class="row">
+        <div class="col-lg-9">
+          {{> sitesUpload}}
+        </div><!-- /col-lg-9 END SECTION MIDDLE -->
+      </div><!--/row -->
+    </section>
+  </section>
+ </div><!-- /darkblue panel -->
+         </div><!-- /col-md-4 -->
+</template>
+
+<!--
+<template name="boxFooter">
+  <footer>
+    <div class="pull-left">
+      <h5><i class="fa fa-hdd-o"></i> 17 GB</h5>
+    </div>
+    <div class="pull-right">
+      <h5>60% Used</h5>
+    </div>
+  </footer>
+</template>
+-->
+
+
+<template name="sitesUpload">
+
+
+  {{#if currentUser}}
+  {{#unless uploading}}
+   <input class="btn-primary btn" type="file" name="uploadCSV">
+  {{else}}
+  <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
+  {{/unless}}
+  {{/if}}
+</template>
+
