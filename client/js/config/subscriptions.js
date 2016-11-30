@@ -1,1 +1,1 @@
-Meteor.subscribe('sites.public');
+//Meteor.subscribe('sites.public');
