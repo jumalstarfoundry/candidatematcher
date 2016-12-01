@@ -25,8 +25,15 @@ findShift = function(doc){
 
 }
 */
+var findCandidateStartTime = function(cand, day){
+  return cand[day.charAt(0).toUpperCase() + day.substr(1) + " Start Time"];
+}
 
-var canBePlaced = function(candidate, site) {
+var findCandidateEndTime = function(cand, day){
+  return cand[day.charAt(0).toUpperCase() + day.substr(1) + " End Time"];
+}
+
+var placeCandidate = function(candidate, site) {
 
     var businessRulesMet = {};
 
@@ -47,49 +54,43 @@ var canBePlaced = function(candidate, site) {
     var siteStartTime, siteEndTime;
 
     // special cases to deal with
-    var candidateFreeFriday = false;
-    var candidateFreeEarlyWedPlusOneDay = false;
+    //var candidateFreeFriday = false;
+    //var candidateFreeEarlyWedPlusOneDay = false;
 
 
-    var findCandidateStartTime = function(day){
-      return candidate[day.charAt(0).toUpperCase() + day.substr(1) + " Start Time"];
-    }
 
-    var findCandidateEndTime = function(day){
-      return candidate[day.charAt(0).toUpperCase() + day.substr(1) + " End Time"];
-    }
 
     // Sites use 3 digit day format, except for 'Thur'
     var findSiteStartTime = function(day){
-      var daySubstring = day.substr(1,3);
+      var daySubstring = (day+"").substr(1,3);
 
-      if(day != "Thursday"){
+      if((day+"") != "Thursday"){
         daySubstring = daySubstring.substr(0,2); // Shave off the last char if day isn't Thursday
       }
 
 // DEBUG
-///console.log(day + " has been converted to ", day.charAt(0).toUpperCase() +  daySubstring + " Start Time");
+/////console.log((day+"") + " has been converted to ", (day+"").charAt(0).toUpperCase() +  daySubstring + " Start Time");
 
-      return site[day.charAt(0).toUpperCase() +  daySubstring + " Start Time"];
+      return site[(day+"").charAt(0).toUpperCase() +  daySubstring + " Start Time"];
     }
 
     var findSiteEndTime = function(day){
 
-      var daySubstring = day.substr(1,3);
+      var daySubstring = (day+"").substr(1,3);
 
-      if(day != "Thursday"){
+      if((day+"") != "Thursday"){
         daySubstring = daySubstring.substr(0,2); // Shave off the last char if day isn't Thursday
       }
 
-      return site[day.charAt(0).toUpperCase() + daySubstring + " End Time"];
+      return site[(day+"").charAt(0).toUpperCase() + daySubstring + " End Time"];
     }
 
     var candidateMatchesWithSite = function(day)
       {
         var candidateStartTime, candidateEndTime;
 
-        candidateStartTime = findCandidateStartTime(day);
-        candidateEndTime = findCandidateEndTime(day);
+        candidateStartTime = findCandidateStartTime(candidate, day);
+        candidateEndTime = findCandidateEndTime(candidate, day);
         siteStartTime = findSiteStartTime(day);
         siteEndTime = findSiteEndTime(day);
 
@@ -123,6 +124,7 @@ var canBePlaced = function(candidate, site) {
       if(candidateMatchesWithSite("Monday"))
       {
         daysAvailableAtSite++;
+
       }
 
       if(candidateMatchesWithSite("Tuesday"))
@@ -134,7 +136,6 @@ var canBePlaced = function(candidate, site) {
       {
         daysAvailableAtSite++;
 
-        candidateFreeEarlyWedPlusOneDay = moment("14:00", "HH:mm").diff(moment(findCandidateStartTime("Wednesday"), "HH:mm")) <= 0;
       }
 
       if(candidateMatchesWithSite("Thursday"))
@@ -145,8 +146,29 @@ var canBePlaced = function(candidate, site) {
       if(candidateMatchesWithSite("Friday"))
       {
         daysAvailableAtSite++;
-        candidateFreeFriday = true;
+        candidate.freeFridayPlusOneDay = daysAvailableAtSite > 1;
       }
+
+      var candidateMatchStats = {};
+
+      candidateMatchStats.daysAvailableAtSite = daysAvailableAtSite;
+      candidateMatchStats.free2pmWedPlusOneDay = (moment("14:00", "HH:mm").diff(moment(findCandidateStartTime(candidate, "Wednesday"), "HH:mm")) <= 0) && (daysAvailableAtSite > 1);
+      candidateMatchStats.free245pmWedPlusOneDay = (moment("14:45", "HH:mm").diff(moment(findCandidateStartTime(candidate, "Wednesday"), "HH:mm")) <= 0) && (daysAvailableAtSite > 1);
+
+      var available230to5_Mon =  (moment("14:30", "HH:mm").diff(moment(findCandidateStartTime(candidate, "Monday"), "HH:mm")) <= 0)
+                              && (moment("17:00", "HH:mm").diff(moment(findCandidateEndTime(candidate, "Monday"), "HH:mm")) >= 0);
+
+      var available230to5_Tue =  (moment("14:30", "HH:mm").diff(moment(findCandidateStartTime(candidate, "Tuesday"), "HH:mm")) <= 0)
+                              && (moment("17:00", "HH:mm").diff(moment(findCandidateEndTime(candidate, "Tuesday"), "HH:mm")) >= 0);
+
+      var available230to5_Wed =  (moment("14:30", "HH:mm").diff(moment(findCandidateStartTime(candidate, "Wednesday"), "HH:mm")) <= 0)
+                              && (moment("17:00", "HH:mm").diff(moment(findCandidateEndTime(candidate, "Wednesday"), "HH:mm")) >= 0);
+
+      var available230to5_Thur =  (moment("14:30", "HH:mm").diff(moment(findCandidateStartTime(candidate, "Thurday"), "HH:mm")) <= 0)
+                        && (moment("17:00", "HH:mm").diff(moment(findCandidateEndTime(candidate, "Thursday"), "HH:mm")) >= 0);
+
+
+      candidateMatchStats.availableTwoPlusDaysAndAnyDayMTWTh230to5 = available230to5_Mon && available230to5_Tue && available230to5_Wed && available230to5_Thur && (candidate['Number of Days to Work']>1);
 
 /// DEBUG
 if(candidate["First Name"] == "My" && site["Site"] == "Bahia")
@@ -154,11 +176,11 @@ if(candidate["First Name"] == "My" && site["Site"] == "Bahia")
 console.log("available number of days is ", daysAvailableAtSite);
 }
 
-businessRulesMet.schedulesMatch = daysAvailableAtSite >= minimumNumberOfDays;
+candidateMatchStats.meetsMinimumAvailabilityAtSite = daysAvailableAtSite >= minimumNumberOfDays;
 //businessRulesMet.travelWillingness = site.requiresTravel == candidate['Willing to Travel?'];
 
 
-return  businessRulesMet.schedulesMatch;
+return  candidateMatchStats;
 
 
 };
@@ -204,7 +226,7 @@ Template.manageCandidates.events({
         var candidatePlacementCount = 0;
 
         availableSites.forEach(function (site){
-                                                  if (canBePlaced(candidate, site)){
+                                                  if (placeCandidate(candidate, site).meetsMinimumAvailabilityAtSite){
 
 //                                                      var candId = candidate._id;
 
@@ -219,12 +241,16 @@ if(candidate["First Name"] =="My"){
                                                       if(potentialAssignments[site.Site])
                                                         {
                                                           potentialAssignments[site.Site][candidate._id] = candidate;
+                                                          potentialAssignments[site.Site]["placementCount"] = potentialAssignments[site.Site]["placementCount"] + 1;
+
                                                         }
                                                       else
                                                       {
                                                           let candidateLookup = {};
                                                           candidateLookup[candidate._id] = candidate;
                                                           potentialAssignments[site.Site] = candidateLookup;
+                                                          potentialAssignments[site.Site]["placementCount"] = 1;
+
                                                         //_.extend(potentialAssignments[site.name], {candId:candidate});//_.extend(potentialAssignments[site.name],  {candidate["_id"]:candidate}  );
                                                       }
 
@@ -240,7 +266,7 @@ if(candidate["First Name"] =="My"){
                                                       {
                                           ///              console.log("nope, no id is currently being tracked.....");
 
-                                                        candidatePriorityTracker.push({id: candidate._id, daysWillingToWork: candidate["Number of Days to Work"], workStatus: candidate["Preferred Volunteer Status"]});
+                                                        candidatePriorityTracker.push(candidate);
                                                       }
 
 
@@ -280,6 +306,322 @@ if(candidate["First Name"] =="My"){
     console.log("The placement matrix we've found is: " , potentialAssignments);
     console.log("A sample value (Bahia) from the placement matrix we've found is: " , potentialAssignments["Bahia"]);
     console.log("The ranking of days to work is " , candidatePriorityTracker);
+
+    // additionalDaysFreeArray ["Monday", "Tuesday"] means candidate should also be free
+    // on Monday OR Tuesday in addition to what's specified in the other parameters
+    //
+    var freeOnDayTime = function(cand, day, startTime, endTime){
+
+      var freeStatus = false;
+      var candStartTime, candEndTime;
+
+      // special cases to deal with
+      //var candidateFreeFriday = false;
+      //var candidateFreeEarlyWedPlusOneDay = false;
+
+      candStartTime = findCandidateStartTime(cand, day);
+      candEndTime = findCandidateEndTime(cand, day);
+
+console.log("cand start time is ", candStartTime);
+console.log("cand end time is ", candEndTime);
+
+
+      if(candStartTime){
+        freeStatus = true;
+        console.log("cand is considered free on ", day);
+
+      }
+
+      if (startTime){
+
+          var canShowUpBeforeOrAtStart = moment(startTime, "HH:mm").diff(moment(candStartTime, "HH:mm")) >= 0;
+          freeStatus = freeStatus && canShowUpBeforeOrAtStart;
+
+          console.log("cand needs to show up by", startTime);
+          console.log("cand is able to show up by", candStartTime);
+
+          console.log("cand can show up before or at start ", canShowUpBeforeOrAtStart);
+
+          if(endTime){
+            var canLeaveAtOrAfter =  moment(candEndTime, "HH:mm").diff(moment(endTime, "HH:mm")) >= 0;
+            freeStatus = freeStatus && canLeaveAtOrAfter;
+          }
+      }
+
+      return freeStatus;
+    }
+
+    var meetsGroupCriteria = function(candidateToCheck, groupToCheck){
+      var meetsCriteria = false;
+      switch (groupToCheck)
+      {
+        case 1: // Willing to travel, Free on Friday + 1 other day
+        console.log("Cand being checked is", candidateToCheck);
+        console.log("willing to travel value is", candidateToCheck['Willing to Travel?']);
+        meetsCriteria = (candidateToCheck['Willing to Travel?'] == 'Yes')
+                        && freeOnDayTime(candidateToCheck, "Friday", "", "")
+                        && (
+                            freeOnDayTime(candidateToCheck, "Monday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Tuesday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Wednesday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Thursday", "", "")
+                            );
+        break;
+        case 2: // Willing to travel, not free Friday + 1 other day, and free on Wed before 2p + can work another day
+        meetsCriteria = (candidateToCheck['Willing to Travel?'] == 'Yes')
+                        &&
+                        !(
+                          freeOnDayTime(candidateToCheck, "Friday", "", "")
+                          &&
+                          (
+                            freeOnDayTime(candidateToCheck, "Monday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Tuesday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Wednesday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Thursday", "", "")
+                          )
+                        )
+                          &&
+                        (
+                          freeOnDayTime(candidateToCheck, "Wednesday", "14:00", "") &&
+                          (
+                            freeOnDayTime(candidateToCheck, "Monday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Tuesday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Thursday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Friday", "", "")
+                          )
+                        );
+
+        break;
+        case 3: // Willing to travel, not free Friday + 1 other day, and free on Wed before 2p + can work another day
+        meetsCriteria = (candidateToCheck['Willing to Travel?'] == 'Yes')
+                        &&
+                        !(
+                          freeOnDayTime(candidateToCheck, "Friday", "", "")
+                          &&
+                          (
+                            freeOnDayTime(candidateToCheck, "Monday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Tuesday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Wednesday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Thursday", "", "")
+                          )
+                        )
+                          &&
+                        !(
+                          freeOnDayTime(candidateToCheck, "Wednesday", "14:00", "") &&
+                          (
+                            freeOnDayTime(candidateToCheck, "Monday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Tuesday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Thursday", "", "") ||
+                            freeOnDayTime(candidateToCheck, "Friday", "", "")
+                          )
+                        );
+
+        break;
+        case 4: // Not willing to travel, speaks spanish, available to work 2+ days, and Free MTW or Th 2:30-5p
+        meetsCriteria = (!candidateToCheck['Willing to Travel?'] == 'Yes')
+                          && (candidateToCheck["Languages spoken"].toLowerCase().includes("spanish") )
+                          && (candidateToCheck["Number of Days to Work"] >= 2)
+                          && (
+                            freeOnDayTime(candidateToCheck, "Monday", "14:30", "17:00") ||
+                            freeOnDayTime(candidateToCheck, "Tuesday", "14:30", "17:00") ||
+                            freeOnDayTime(candidateToCheck, "Wednesday", "14:30", "17:00") ||
+                            freeOnDayTime(candidateToCheck, "Thursday", "14:30", "17:00")
+                          );
+        break;
+        case 5: // Not willing to travel, speaks spanish, NOT available to work 2+ days + Free MTW or Th 2:30-5p
+        meetsCriteria = (!candidateToCheck['Willing to Travel?'] == 'Yes')
+                          && (candidateToCheck["Languages spoken"].toLowerCase().includes("spanish") )
+                          && !(
+                                (candidateToCheck["Number of Days to Work"] >= 2)
+                                && (
+                                    freeOnDayTime(candidateToCheck, "Monday", "14:30", "17:00") ||
+                                    freeOnDayTime(candidateToCheck, "Tuesday", "14:30", "17:00") ||
+                                    freeOnDayTime(candidateToCheck, "Wednesday", "14:30", "17:00") ||
+                                    freeOnDayTime(candidateToCheck, "Thursday", "14:30", "17:00")
+                                  )
+                              )
+                          && candidateToCheck["Position_Site_Preference1"] == "Bahia";
+        break;
+        case 6: // Not willing to travel, does NOT speak spanish, available Friday + 1 more day
+        meetsCriteria = (!candidateToCheck['Willing to Travel?'] == 'Yes')
+                          && !(candidateToCheck["Languages spoken"].toLowerCase().includes("spanish") )
+                          && (
+                                (candidateToCheck["Number of Days to Work"] >= 2)
+                                && freeOnDayTime(candidateToCheck, "Friday", "", "")
+                              );
+        break;
+        case 6: // Not willing to travel, does NOT speak spanish, available Friday + 1 more day
+        meetsCriteria = (!candidateToCheck['Willing to Travel?'] == 'Yes')
+                          && !(candidateToCheck["Languages spoken"].toLowerCase().includes("spanish") )
+                          && !(
+                                (candidateToCheck["Number of Days to Work"] >= 2)
+                                && freeOnDayTime(candidateToCheck, "Friday", "", "")
+                              )
+                          && freeOnDayTime(candidateToCheck, "Friday", "14:45", "");
+        break;
+        case 8:
+                meetsCriteria = true;
+        break;
+
+        default:
+        break;
+      }
+
+      return meetsCriteria;
+    };
+
+    // Assumes candidate meets
+    var attemptAssignment = function(candidateToTry, sitesToTryArray){
+
+      // Check to see if candidate has availability via potentialAssignments
+      /// NEXT: Check according to filled ratio
+
+      sitesToTryArray.forEach(function(siteNameToTry){
+
+        console.log("About to try site....", siteNameToTry);
+        //console.log("The candidate object in the assignements array is... ", potentialAssignments[siteNameToTry][candidateToTry._id]);
+//console.log("The true value of it is", potentialAssignments[siteNameToTry][candidateToTry._id] == false);
+
+        // check for sites that had no potential assignments at all
+        //
+        if(!potentialAssignments[siteNameToTry])
+        {
+          potentialAssignments[siteNameToTry] = {};
+        }
+
+        if(potentialAssignments[siteNameToTry][candidateToTry._id])
+        {
+
+          console.log("Now assigning to site", siteNameToTry);
+
+
+          // Assign to next in line UNLESS the ratio is off!
+          Candidates.update({_id: candidateToTry._id}, {$set: {prioritySite: siteNameToTry}});
+
+          // update placement matrix by removing from all other sites
+          /*potentialAssignments.forEach(function(nonPrioritySiteName){
+            if (potentialAssignments[nonPrioritySiteName][candidateToTry._id]){
+
+              delete potentialAssignments[nonPrioritySiteName][candidateToTry._id];
+              potentialAssignments[nonPrioritySiteName]["candidatePlacementCount"] = potentialAssignments[nonPrioritySiteName]["candidatePlacementCount"] - 1;
+
+              return true; // Now that an assignment occured, exit array
+
+              // Remove candidate from the priority tracker...?
+              // May not be needed, since this function is already called during an interation through that array
+            }
+
+          });
+          */
+
+          for (var siteName in potentialAssignments) {
+            console.log("site id is ", siteName);
+            console.log("The site itself is", potentialAssignments[siteName]);
+
+            if (potentialAssignments[siteName][candidateToTry._id]){
+
+              delete potentialAssignments[siteName][candidateToTry._id];
+              potentialAssignments[siteName]["candidatePlacementCount"] = potentialAssignments[siteName]["candidatePlacementCount"] - 1;
+
+              console.log("The new placement matrix is", potentialAssignments);
+
+              return true; // Now that an assignment occured, exit array
+
+              // Remove candidate from the priority tracker...?
+              // May not be needed, since this function is already called during an interation through that array
+            }
+
+
+          };
+          /*
+          _.each(potentialAssignments, function(potentialSite){
+            console.log("The current potentialSite is", potentialSite);
+            console.log("The current potentialAssignments matrix is", potentialAssignments);
+            if (potentialAssignments[potentialSite.Site][candidateToTry._id]){
+
+              delete potentialAssignments[potentialSite.Site][candidateToTry._id];
+              potentialAssignments[nonPrioritySiteName]["candidatePlacementCount"] = potentialAssignments[nonPrioritySiteName]["candidatePlacementCount"] - 1;
+
+              return true; // Now that an assignment occured, exit array
+
+              // Remove candidate from the priority tracker...?
+              // May not be needed, since this function is already called during an interation through that array
+            }
+
+          });
+
+          */
+        }
+
+      });
+
+      return false;
+    };
+
+
+
+    var getGroupSiteArray = function(groupNumber) {
+      switch (groupNumber)
+      {
+        case 1:
+        return ["Berkley Maynard Academy", "Lafayette", "Martin Luther King"];
+        case 2:
+        return ["TCN/ICS", "Sankofa"];
+        case 3:
+        return ["TCN/ICS", "Sankofa", "Berkley Maynard Academy", "Martin Luther King", "Lafayette", "Emerson Oakland" ];
+        case 4:
+        return ["LeConte"];
+        case 5:
+        return ["Bahia"];
+        case 6:
+        return ["Emerson Berkeley", "Washington", "Oxford", "Jefferson", "James Kenney", "Berkeley Youth Alternatives", "Bahia"];
+        case 7:
+        return ["Rosa Parks", "Washington", "Emerson Berkeley", "John Muir", "Oxford", "LeConte", "Jefferson", "Thousand Oaks", "Berkeley Youth Alternatives"];
+        case 8:
+        return ["Emerson Berkeley", "Rosa Parks", "Washington", "John Muir", "Oxford", "Jefferson", "LeConte", "Thousand Oaks", "Cragmont", "Malcolm X", "Berkeley Arts Magnet", "Berkeley Youth Alternatives", "James Kenney", "Bahia" ];
+        default:
+        return [];
+      }
+    }
+
+    // For each candidate in candidatePriorityTracker
+    candidatePriorityTracker.forEach(function (cand) {
+        // while candidate hasn't been placed
+        var candidatePlaced = false;
+        var currentGroup = 1;
+
+        console.log("Current candidate is ", Candidates.findOne(cand._id)["First Name"]);
+
+        while (!candidatePlaced && (currentGroup <= 8) ) {
+          // If candidate belongs to currentGroup
+          console.log("checking to see if candidate belongs to group " + currentGroup + "..." );
+          if(meetsGroupCriteria(cand, currentGroup)){
+              console.log("YES, candidate does belong to group " + currentGroup + "..." );
+
+            // attemptAssignment to currentGroup
+            candidatePlaced = attemptAssignment(cand, getGroupSiteArray(currentGroup));
+          }
+          // increase group until group = 8
+          currentGroup++;
+        }
+
+        if(!candidatePlaced)
+        {
+          // Assign to the "Unassigned" Sites
+          Candidates.update({_id: cand._id}, {$set: {notes: "Candidate was matchable but was not matched" + cand.notes }});
+
+        }
+
+    });
+
+
+
+
+
+
+
+
+
     // CALCULATE AND STORE SITE RATIOS FOR POTENTIAL PLACEMENTS FOR FINAL PLACEMENT
 
     // Calculate the number of openings at each site
@@ -289,6 +631,8 @@ if(candidate["First Name"] =="My"){
     //
 
 // Run site vs. candidate rules
+
+/*
 var candidateSiteFit = function(candidate, site){
   var businessPreferencesMet = {};
 
@@ -300,6 +644,7 @@ var candidateSiteFit = function(candidate, site){
 
 
 }
+*/
 
 // NEXT: MODIFY SITE SCHEMA TO REFLECT SITE BIZ RULES
 
