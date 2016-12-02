@@ -146,7 +146,7 @@ var placeCandidate = function(candidate, site) {
       if(candidateMatchesWithSite("Friday"))
       {
         daysAvailableAtSite++;
-        candidate.freeFridayPlusOneDay = daysAvailableAtSite > 1;
+        //candidate.freeFridayPlusOneDay = daysAvailableAtSite > 1;
       }
 
       var candidateMatchStats = {};
@@ -494,9 +494,10 @@ console.log("cand end time is ", candEndTime);
 
           console.log("Now assigning to site", siteNameToTry);
 
+          var siteIdToTry = Sites.findOne({Site:siteNameToTry})._id;
 
           // Assign to next in line UNLESS the ratio is off!
-          Candidates.update({_id: candidateToTry._id}, {$set: {prioritySite: siteNameToTry}});
+          Candidates.update({_id: candidateToTry._id}, {$set: {prioritySite: siteIdToTry}});
 
           // update placement matrix by removing from all other sites
           /*potentialAssignments.forEach(function(nonPrioritySiteName){
@@ -514,18 +515,19 @@ console.log("cand end time is ", candEndTime);
           });
           */
 
+          // Remove candidate from other sites
           for (var siteName in potentialAssignments) {
             console.log("site id is ", siteName);
             console.log("The site itself is", potentialAssignments[siteName]);
 
             if (potentialAssignments[siteName][candidateToTry._id]){
 
-              delete potentialAssignments[siteName][candidateToTry._id];
-              potentialAssignments[siteName]["candidatePlacementCount"] = potentialAssignments[siteName]["candidatePlacementCount"] - 1;
+              if(siteNameToTry != siteName){
+                delete potentialAssignments[siteName][candidateToTry._id];
+                potentialAssignments[siteName]["candidatePlacementCount"] = potentialAssignments[siteName]["candidatePlacementCount"] - 1;
+              }
 
-              console.log("The new placement matrix is", potentialAssignments);
 
-              return true; // Now that an assignment occured, exit array
 
               // Remove candidate from the priority tracker...?
               // May not be needed, since this function is already called during an interation through that array
@@ -533,6 +535,9 @@ console.log("cand end time is ", candEndTime);
 
 
           };
+
+          console.log("The new placement matrix (now that the candidate has been removed from everywhere else) is", potentialAssignments);
+
           /*
           _.each(potentialAssignments, function(potentialSite){
             console.log("The current potentialSite is", potentialSite);

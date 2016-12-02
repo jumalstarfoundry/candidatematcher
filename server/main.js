@@ -40,7 +40,7 @@ Meteor.methods({
           }
           */
 
-        if (item['Monday Start Time'] == "Not Available") 
+        if (item['Monday Start Time'] == "Not Available")
         {
           item['Monday Start Time'] = "";
           item['Monday End Time'] = "";
@@ -49,51 +49,51 @@ Meteor.methods({
         {
           item['Monday Start Time'] = moment(item['Monday Start Time'],"H:mma").format("HH:mm");
           item['Monday End Time'] = moment(item['Monday End Time'],"H:mma").format("HH:mm");
-        } 
+        }
 
-        if (item['Tuesday Start Time'] == "Not Available") 
+        if (item['Tuesday Start Time'] == "Not Available")
         {
           item['Tuesday Start Time'] = "";
           item['Tuesday End Time'] = "";
-        } 
+        }
         else
         {
           item['Tuesday Start Time'] = moment(item['Tuesday Start Time'],"H:mma").format("HH:mm");
           item['Tuesday End Time'] = moment(item['Tuesday End Time'],"H:mma").format("HH:mm");
-        } 
+        }
 
-        if (item['Wednesday Start Time'] == "Not Available") 
+        if (item['Wednesday Start Time'] == "Not Available")
         {
           item['Wednesday Start Time'] = "";
           item['Wednesday End Time'] = "";
-        } 
+        }
         else
         {
           item['Wednesday Start Time'] = moment(item['Wednesday Start Time'],"H:mma").format("HH:mm");
           item['Wednesday End Time'] = moment(item['Wednesday End Time'],"H:mma").format("HH:mm");
-        } 
+        }
 
-        if (item['Thursday Start Time'] == "Not Available") 
+        if (item['Thursday Start Time'] == "Not Available")
         {
           item['Thursday Start Time'] = "";
           item['Thursday End Time'] = "";
-        } 
+        }
         else
         {
           item['Thursday Start Time'] = moment(item['Thursday Start Time'],"H:mma").format("HH:mm");
           item['Thursday End Time'] = moment(item['Thursday End Time'],"H:mma").format("HH:mm");
-        } 
+        }
 
-        if (item['Friday Start Time'] == "Not Available") 
+        if (item['Friday Start Time'] == "Not Available")
         {
           item['Friday Start Time'] = "";
           item['Friday End Time'] = "";
-        } 
+        }
         else
         {
           item['Friday Start Time'] = moment(item['Friday Start Time'],"H:mma").format("HH:mm");
           item['Friday End Time'] = moment(item['Friday End Time'],"H:mma").format("HH:mm");
-        } 
+        }
 /*
         let candidateToInsert = {}
 
@@ -121,11 +121,6 @@ Meteor.methods({
         candidateToInsert["Age Group Preference"] = item["Age Group Preference"];
         candidateToInsert["Graduation Year"] = item["Graduation Year"];
 */
-
-        
-
-
-
         Candidates.insert( item );
       } else {
         console.warn( 'Row upload rejected. This item does not have a first name or last name.' );
@@ -144,7 +139,7 @@ Meteor.methods({
 
       if ( itemIsValidSite ) {
 
-        if (item['Mon Start Time'] == "") 
+        if (item['Mon Start Time'] == "")
         {
           item['Mon Start Time'] = "";
           item['Mon End Time'] = "";
@@ -153,52 +148,52 @@ Meteor.methods({
         {
           item['Mon Start Time'] = moment(item['Mon Start Time'],"H:mma").format("HH:mm");
           item['Mon End Time'] = moment(item['Mon End Time'],"H:mma").format("HH:mm");
-        } 
+        }
 
-        if (item['Tues Start Time'] == "") 
+        if (item['Tues Start Time'] == "")
         {
           item['Tues Start Time'] = "";
           item['Tues End Time'] = "";
-        } 
+        }
         else
         {
           item['Tues Start Time'] = moment(item['Tues Start Time'],"H:mma").format("HH:mm");
           item['Tues End Time'] = moment(item['Tues End Time'],"H:mma").format("HH:mm");
-        } 
+        }
 
-        if (item['Wed Start Time'] == "") 
+        if (item['Wed Start Time'] == "")
         {
           item['Wed Start Time'] = "";
           item['Wed End Time'] = "";
-        } 
+        }
         else
         {
           item['Wed Start Time'] = moment(item['Wed Start Time'],"H:mma").format("HH:mm");
           item['Wed End Time'] = moment(item['Wed End Time'],"H:mma").format("HH:mm");
-        } 
+        }
 
-        if (item['Thur Start Time'] == "") 
+        if (item['Thur Start Time'] == "")
         {
           item['Thur Start Time'] = "";
           item['Thur End Time'] = "";
-        } 
+        }
         else
         {
           item['Thur Start Time'] = moment(item['Thur Start Time'],"H:mma").format("HH:mm");
           item['Thur End Time'] = moment(item['Thur End Time'],"H:mma").format("HH:mm");
-        } 
+        }
 
-        if (item['Fri Start Time'] == "") 
+        if (item['Fri Start Time'] == "")
         {
           item['Fri Start Time'] = "";
           item['Fri End Time'] = "";
-        } 
+        }
         else
         {
           item['Fri Start Time'] = moment(item['Fri Start Time'],"H:mma").format("HH:mm");
           item['Fri End Time'] = moment(item['Fri End Time'],"H:mma").format("HH:mm");
-        } 
-        
+        }
+
 
         Sites.insert( item );
       } else {
@@ -218,6 +213,3 @@ Meteor.methods({
   }
 }); */
 /*lines 25-30, added this method to publish Candidates collection on the houston admin. still not sure exactly that this did. after commenting these lines out, reseting meteor, uploading the csv again and then opening the houston admin, the "candidateInfo_fromCSV" collection displays--but only the first row. none of the values from rows after the first ones are displaying. just a note, but not sure if this was even on the right path. *bél* */
-
-
-
