@@ -5,6 +5,10 @@ Template.editSite.helpers({
   currentSite: function() {
 
     var currSite = Sites.findOne(FlowRouter.getParam('siteId'));
+
+    if(!currSite){
+      currSite = Sites.findOne({Site:FlowRouter.getParam('siteName')});
+    }
     console.log("The current site is", currSite);
 
     return currSite;

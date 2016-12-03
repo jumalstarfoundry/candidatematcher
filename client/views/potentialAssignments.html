@@ -1,0 +1,39 @@
+<template name="potentialAssignments">
+  <div class="col-md-10" style="
+                               padding-bottom: 15px;
+                               ">
+    <div class="" style="height: 550px;width: 1000px;padding-right: 25px;padding-left: 25px;">
+      <div class="darkblue-header">
+        <h2 class="page-header">Potential Assignments</h2>
+
+<!--
+        <a class="btn-primary btn" href="/addCandidate">Add Candidate</a>
+        <button id="autoMatch" class="btn-primary btn">Auto-Match Candidates</button>
+        <button id="exportMatches" class="btn-primary btn">Export Candidate Data</button>
+        <a class="btn-primary btn" href="/candidatesFileUpload">Import Candidate Data</a>
+-->
+      </div>
+
+      <div class="container row" style="margin-top: 50px;">
+
+        {{#each potentialAssignmentsList}}
+
+            <!--<a href="/editSite/bySiteName/{{site}}" target="_blank"><h1>{{site}}</h1></a>
+            -->
+          <h1>{{site}}</h1>
+
+            <br/>
+            {{#each candidates}}
+              <a href="/editCandidate/{{_id}}" target="_blank"> {{[First Name]}} {{[Last Name]}} </a> <br/>
+            {{/each}}
+
+
+        {{/each}}
+
+
+      </div>
+    </div><!-- /darkblue panel -->
+  </div><!-- /col-md-4 -->
+
+
+</template>

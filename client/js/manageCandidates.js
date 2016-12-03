@@ -101,6 +101,7 @@ var placeCandidate = function(candidate, site) {
         ///var timeAvailableForWork = moment(candidateEndTime, "HH:mm").diff(moment(candidateStartTime, "HH:mm"));
 
 ///DEBUG
+/*
         if(candidate["First Name"] == "My" && site["Site"] == "Bahia")
         {
 
@@ -116,7 +117,7 @@ var placeCandidate = function(candidate, site) {
           console.log(candidate["First Name"] + " " + candidate["Last Name"] + " can leave at or after closing: ", candidateCanLeaveAtOrAfterClosing);
 
         }
-
+*/
         return candidateCanShowUpBeforeOrAtStart && candidateCanLeaveAtOrAfterClosing; // && (timeAvailableForWork >= minimumMillsecondsToWork);
 
       }
@@ -171,11 +172,11 @@ var placeCandidate = function(candidate, site) {
       candidateMatchStats.availableTwoPlusDaysAndAnyDayMTWTh230to5 = available230to5_Mon && available230to5_Tue && available230to5_Wed && available230to5_Thur && (candidate['Number of Days to Work']>1);
 
 /// DEBUG
-if(candidate["First Name"] == "My" && site["Site"] == "Bahia")
+/*if(candidate["First Name"] == "My" && site["Site"] == "Bahia")
 {
 console.log("available number of days is ", daysAvailableAtSite);
 }
-
+*/
 candidateMatchStats.meetsMinimumAvailabilityAtSite = daysAvailableAtSite >= minimumNumberOfDays;
 //businessRulesMet.travelWillingness = site.requiresTravel == candidate['Willing to Travel?'];
 
@@ -235,9 +236,8 @@ Template.manageCandidates.events({
                                                       // If the site has already received assignments, there is no need to
                                                       // initialize an object at the site key value
                                                       //
-if(candidate["First Name"] =="My"){
-                        console.log("My  can be placed");
-}
+
+
                                                       if(potentialAssignments[site.Site])
                                                         {
                                                           potentialAssignments[site.Site][candidate._id] = candidate;
@@ -262,7 +262,9 @@ if(candidate["First Name"] =="My"){
                                                       // Only add an entry in this array if the candidate hasn't been added yet
                                           /////          console.log("Testing if candidatePriorityTracker has the candidate id...", candidatePriorityTracker, "findIndex", _.findIndex(candidatePriorityTracker, {id: candidate._id}));
 
-                                                      if ( _.findIndex(candidatePriorityTracker, {id: candidate._id}) == -1 )
+                                                      /////console.log("find index is...." ,  _.findIndex(candidatePriorityTracker, {id: candidate._id}));
+
+                                                      if ( _.findIndex(candidatePriorityTracker, {_id: candidate._id}) == -1 )
                                                       {
                                           ///              console.log("nope, no id is currently being tracked.....");
 
@@ -303,9 +305,11 @@ if(candidate["First Name"] =="My"){
 
     // Now we should have a placement matrix
 
-    console.log("The placement matrix we've found is: " , potentialAssignments);
-    console.log("A sample value (Bahia) from the placement matrix we've found is: " , potentialAssignments["Bahia"]);
-    console.log("The ranking of days to work is " , candidatePriorityTracker);
+/////    console.log("The placement matrix we've found is: " , potentialAssignments);
+    Session.set('potentialAssignmentsSessionVar', potentialAssignments);
+
+  /////  console.log("A sample value (Bahia) from the placement matrix we've found is: " , potentialAssignments["Bahia"]);
+/////    console.log("The ranking of days to work is " , candidatePriorityTracker);
 
     // additionalDaysFreeArray ["Monday", "Tuesday"] means candidate should also be free
     // on Monday OR Tuesday in addition to what's specified in the other parameters
@@ -321,14 +325,14 @@ if(candidate["First Name"] =="My"){
 
       candStartTime = findCandidateStartTime(cand, day);
       candEndTime = findCandidateEndTime(cand, day);
-
-console.log("cand start time is ", candStartTime);
-console.log("cand end time is ", candEndTime);
-
+/*
+      console.log("cand start time is ", candStartTime);
+      console.log("cand end time is ", candEndTime);
+*/
 
       if(candStartTime){
         freeStatus = true;
-        console.log("cand is considered free on ", day);
+/////        console.log("cand is considered free on ", day);
 
       }
 
@@ -336,12 +340,12 @@ console.log("cand end time is ", candEndTime);
 
           var canShowUpBeforeOrAtStart = moment(startTime, "HH:mm").diff(moment(candStartTime, "HH:mm")) >= 0;
           freeStatus = freeStatus && canShowUpBeforeOrAtStart;
-
+/*
           console.log("cand needs to show up by", startTime);
           console.log("cand is able to show up by", candStartTime);
 
           console.log("cand can show up before or at start ", canShowUpBeforeOrAtStart);
-
+*/
           if(endTime){
             var canLeaveAtOrAfter =  moment(candEndTime, "HH:mm").diff(moment(endTime, "HH:mm")) >= 0;
             freeStatus = freeStatus && canLeaveAtOrAfter;
@@ -356,8 +360,8 @@ console.log("cand end time is ", candEndTime);
       switch (groupToCheck)
       {
         case 1: // Willing to travel, Free on Friday + 1 other day
-        console.log("Cand being checked is", candidateToCheck);
-        console.log("willing to travel value is", candidateToCheck['Willing to Travel?']);
+      //////  console.log("Cand being checked is", candidateToCheck);
+      //////  console.log("willing to travel value is", candidateToCheck['Willing to Travel?']);
         meetsCriteria = (candidateToCheck['Willing to Travel?'] == 'Yes')
                         && freeOnDayTime(candidateToCheck, "Friday", "", "")
                         && (
@@ -476,11 +480,13 @@ console.log("cand end time is ", candEndTime);
       // Check to see if candidate has availability via potentialAssignments
       /// NEXT: Check according to filled ratio
 
+      var assignmentSucceeded = false;
+
       sitesToTryArray.forEach(function(siteNameToTry){
 
-        console.log("About to try site....", siteNameToTry);
+        /////console.log("About to try site....", siteNameToTry);
         //console.log("The candidate object in the assignements array is... ", potentialAssignments[siteNameToTry][candidateToTry._id]);
-//console.log("The true value of it is", potentialAssignments[siteNameToTry][candidateToTry._id] == false);
+        //console.log("The true value of it is", potentialAssignments[siteNameToTry][candidateToTry._id] == false);
 
         // check for sites that had no potential assignments at all
         //
@@ -491,42 +497,41 @@ console.log("cand end time is ", candEndTime);
 
         if(potentialAssignments[siteNameToTry][candidateToTry._id])
         {
+          // Candidate's schedule matches with this site in this group!
 
-          console.log("Now assigning to site", siteNameToTry);
+/////          console.log("Now assigning to site", siteNameToTry);
 
           var siteIdToTry = Sites.findOne({Site:siteNameToTry})._id;
 
           // Assign to next in line UNLESS the ratio is off!
+          // FUTURE
           Candidates.update({_id: candidateToTry._id}, {$set: {prioritySite: siteIdToTry}});
+          assignmentSucceeded = true;
 
           // update placement matrix by removing from all other sites
-          /*potentialAssignments.forEach(function(nonPrioritySiteName){
-            if (potentialAssignments[nonPrioritySiteName][candidateToTry._id]){
 
-              delete potentialAssignments[nonPrioritySiteName][candidateToTry._id];
-              potentialAssignments[nonPrioritySiteName]["candidatePlacementCount"] = potentialAssignments[nonPrioritySiteName]["candidatePlacementCount"] - 1;
-
-              return true; // Now that an assignment occured, exit array
-
-              // Remove candidate from the priority tracker...?
-              // May not be needed, since this function is already called during an interation through that array
-            }
-
-          });
-          */
 
           // Remove candidate from other sites
+          var currentNotes = Candidates.findOne(candidateToTry._id).notes
+          currentNotes = currentNotes ? currentNotes + " Could also work at " : "Could also work at ";
+
           for (var siteName in potentialAssignments) {
-            console.log("site id is ", siteName);
-            console.log("The site itself is", potentialAssignments[siteName]);
+            /////console.log("site id is ", siteName);
+            /////console.log("The site itself is", potentialAssignments[siteName]);
 
             if (potentialAssignments[siteName][candidateToTry._id]){
 
+              // If the site we're at isn't the one we've now assigned the candidate to
               if(siteNameToTry != siteName){
+
+                // PULL UP ACTUAL NOTES FROM DB
+
+                currentNotes =  currentNotes + siteName + "; ";
+                Candidates.update({_id: candidateToTry._id}, {$set: {notes: currentNotes}});
+
                 delete potentialAssignments[siteName][candidateToTry._id];
                 potentialAssignments[siteName]["candidatePlacementCount"] = potentialAssignments[siteName]["candidatePlacementCount"] - 1;
               }
-
 
 
               // Remove candidate from the priority tracker...?
@@ -536,34 +541,13 @@ console.log("cand end time is ", candEndTime);
 
           };
 
-          console.log("The new placement matrix (now that the candidate has been removed from everywhere else) is", potentialAssignments);
-
-          /*
-          _.each(potentialAssignments, function(potentialSite){
-            console.log("The current potentialSite is", potentialSite);
-            console.log("The current potentialAssignments matrix is", potentialAssignments);
-            if (potentialAssignments[potentialSite.Site][candidateToTry._id]){
-
-              delete potentialAssignments[potentialSite.Site][candidateToTry._id];
-              potentialAssignments[nonPrioritySiteName]["candidatePlacementCount"] = potentialAssignments[nonPrioritySiteName]["candidatePlacementCount"] - 1;
-
-              return true; // Now that an assignment occured, exit array
-
-              // Remove candidate from the priority tracker...?
-              // May not be needed, since this function is already called during an interation through that array
-            }
-
-          });
-
-          */
+          /////console.log("The new placement matrix (now that the candidate has been removed from everywhere else) is", potentialAssignments);
         }
 
       });
 
-      return false;
+      return assignmentSucceeded;
     };
-
-
 
     var getGroupSiteArray = function(groupNumber) {
       switch (groupNumber)
@@ -589,20 +573,21 @@ console.log("cand end time is ", candEndTime);
       }
     }
 
+    console.log("candidate priority tracker is ", candidatePriorityTracker);
     // For each candidate in candidatePriorityTracker
     candidatePriorityTracker.forEach(function (cand) {
         // while candidate hasn't been placed
         var candidatePlaced = false;
         var currentGroup = 1;
 
-        console.log("Current candidate is ", Candidates.findOne(cand._id)["First Name"]);
+        var groupsBelongingTo = "";
 
         while (!candidatePlaced && (currentGroup <= 8) ) {
           // If candidate belongs to currentGroup
-          console.log("checking to see if candidate belongs to group " + currentGroup + "..." );
-          if(meetsGroupCriteria(cand, currentGroup)){
-              console.log("YES, candidate does belong to group " + currentGroup + "..." );
 
+          if(meetsGroupCriteria(cand, currentGroup)){
+
+            groupsBelongingTo = groupsBelongingTo + currentGroup + "; ";
             // attemptAssignment to currentGroup
             candidatePlaced = attemptAssignment(cand, getGroupSiteArray(currentGroup));
           }
@@ -610,21 +595,24 @@ console.log("cand end time is ", candEndTime);
           currentGroup++;
         }
 
+        var currentNotes = Candidates.findOne(cand._id).notes;
+        console.log("Current notes are", currentNotes);
+
+        currentNotes = currentNotes ? currentNotes : "";
+
         if(!candidatePlaced)
         {
-          // Assign to the "Unassigned" Sites
-          Candidates.update({_id: cand._id}, {$set: {notes: "Candidate was matchable but was not matched" + cand.notes }});
 
+          // Assign to the "Unassigned" Sites
+          Candidates.update({_id: cand._id}, {$set: {notes: "Candidate belongs to no groups - unassigned; " + currentNotes }});
+
+        }
+        else {
+          currentNotes = currentNotes + " Belongs to group(s) " + groupsBelongingTo;
+          Candidates.update({_id: cand._id}, {$set: {notes: currentNotes }});
         }
 
     });
-
-
-
-
-
-
-
 
 
     // CALCULATE AND STORE SITE RATIOS FOR POTENTIAL PLACEMENTS FOR FINAL PLACEMENT
@@ -665,7 +653,7 @@ Template.editCandidate.helpers({
   currentCandidate: function() {
 
     var currCandidate = Candidates.findOne(FlowRouter.getParam('candidateId'));
-    console.log("The current candidate is", currCandidate);
+    //////console.log("The current candidate is", currCandidate);
 
     return currCandidate;
   }

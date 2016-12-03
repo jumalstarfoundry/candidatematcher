@@ -12,7 +12,7 @@
 
 <body>
 
-  
+
        <div class="row">
          {{> topBar}}
          {{> sAlert}}
@@ -25,19 +25,19 @@
        </div>
 
 
-  <!--     
-  
+  <!--
+
           <div class="col-md-3">
         {{> sideBar}}
         </div>
-        
-        
+
+
       <section id="container" >
        <div class="row mtbox">
          <div class="col-md-2">
          </div>
 
-         
+
 
        </div>
       </section>
@@ -73,7 +73,7 @@
 
   <section id="welcome-content" style="padding-top: 75px;">
 
-  
+
     <div class="row">
 
      <div class="col-lg-offset-2 col-lg-9">
@@ -81,7 +81,7 @@
 
 
             <h2>
-            Welcome to the Mentor Candidate Matcher! 
+            Welcome to the Mentor Candidate Matcher!
             Please click on the appropriate section above to continue.
             </h2>
 
@@ -142,13 +142,20 @@
             </a>
           </li>
 
+          <li >
+            <a href="/potentialAssignments">
+              <i class="fa fa-home"></i>
+              <span>Potential Assignments</span>
+            </a>
+          </li>
+
         </ul>
-      </div>  
+      </div>
 
       <div class="nav top-menu col-md-1">
 
         <ul class="nav pull-right top-menu">
-         
+
           {{#if currentUser}}
             <li><a id="logoutLink" class="logout">Logout</a></li>
           {{else}}
@@ -157,7 +164,7 @@
 
         </ul>
     </div>
-   
+
     <!--logo end-->
 
 
