@@ -41,8 +41,14 @@ var placeCandidate = function(candidate, site) {
     const minimumNumberOfDays = 2;
     businessRulesMet.willingToWorkEnough = candidate["Number of Days to Work"] >= minimumNumberOfDays;
 
-///console.log("testing whether candidate can work enough...");
-    if (!businessRulesMet.willingToWorkEnough) return false;
+    /////console.log("testing whether candidate can work enough...");
+    if (!businessRulesMet.willingToWorkEnough) {
+      /////console.log("not willing to work enough...");
+      Candidates.update({_id: candidate._id}, {$set: {prioritySite: "unassigned", notes:"Not willing to work 2+ days."}});
+
+      return false;
+    }
+    console.log("testing whether candidate can work enough...");
 
 ///console.log("work enough test passed...");
 
@@ -225,7 +231,7 @@ Template.manageCandidates.events({
 // STEP 2:
    //var unassignedCandidates = Candidates.find({prioritySite:{ $exists: false}}); // toggle switch
 
-   var unassignedCandidates = Candidates.find({$or:[{prioritySite:"pending", "Preferred Volunteer Status":"Work-study"},{prioritySite:"pending", "Preferred Volunteer Status":"Education 97/197 course credit"}]}); 
+   var unassignedCandidates = Candidates.find({$or:[{prioritySite:"pending", "Preferred Volunteer Status":"Work-study"},{prioritySite:"pending", "Preferred Volunteer Status":"Education 97/197 course credit"}]});
    var availableSites = Sites.find();
    var potentialAssignments= {};
    var candidatePriorityTracker = [];
@@ -510,7 +516,7 @@ Template.manageCandidates.events({
         {
           // Candidate's schedule matches with this site in this group!
 
-/////          console.log("Now assigning to site", siteNameToTry);
+          /////          console.log("Now assigning to site", siteNameToTry);
 
           var siteIdToTry = Sites.findOne({Site:siteNameToTry})._id;
 
@@ -615,7 +621,7 @@ Template.manageCandidates.events({
         {
 
           // Assign to the "Unassigned" Sites
-          Candidates.update({_id: cand._id}, {$set: {notes: "Candidate belongs to no groups - unassigned; " + currentNotes }});
+          Candidates.update({_id: cand._id}, {$set: {prioritySite: "unassigned", notes: "Candidate belongs to no groups - unassigned; " + currentNotes }});
 
         }
         else {
