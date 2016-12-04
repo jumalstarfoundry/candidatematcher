@@ -13,12 +13,28 @@ Meteor.methods({
 
     // convert siteIds to actual names of sites
     //
+    var noCommaArray = _.map(collection, function(rowObj){
+      var newCell  = "";
+      var newRowObj = {};
+      for (var colName in rowObj){
+
+        // Ensure that sites are human readible
+        //
+        if(colName == "prioritySite")
+        {
+          rowObj[colName] = Sites.findOne(rowObj[colName]+"").Site;
+        }
+
+        noCommaCell = (rowObj[colName]+"").replace(/,/g, "-");
+        newRowObj[colName] = noCommaCell;
 
 
+      }
+      return newRowObj;
+    });
+    ///console.log("Here's the no comma array", noCommaArray);
 
-
-
-    return exportcsv.exportToCSV(collection, heading, delimiter);
+    return exportcsv.exportToCSV(noCommaArray, heading, delimiter);
   },
   parseCandidatesUpload( data ) {
     check( data, Array );
