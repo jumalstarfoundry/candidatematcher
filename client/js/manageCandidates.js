@@ -190,6 +190,15 @@ return  candidateMatchStats;
 
 
 Template.manageCandidates.events({
+  "click #exportMatches": function(event) {
+    var nameFile = 'exportedCandidates.csv';
+    Meteor.call('downloadCandidates', function(err, fileContent) {
+      if(fileContent){
+        var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, nameFile);
+      }
+    });
+  },
   "click #autoMatch": function() {
 
     // Loop through candidates
@@ -214,7 +223,9 @@ Template.manageCandidates.events({
 
 
 // STEP 2:
-   var unassignedCandidates = Candidates.find({prioritySite:{ $exists: false}}); // toggle switch
+   //var unassignedCandidates = Candidates.find({prioritySite:{ $exists: false}}); // toggle switch
+
+   var unassignedCandidates = Candidates.find({$or:[{prioritySite:"pending", "Preferred Volunteer Status":"Work-study"},{prioritySite:"pending", "Preferred Volunteer Status":"Education 97/197 course credit"}]}); 
    var availableSites = Sites.find();
    var potentialAssignments= {};
    var candidatePriorityTracker = [];
@@ -596,7 +607,7 @@ Template.manageCandidates.events({
         }
 
         var currentNotes = Candidates.findOne(cand._id).notes;
-        console.log("Current notes are", currentNotes);
+      /////  console.log("Current notes are", currentNotes);
 
         currentNotes = currentNotes ? currentNotes : "";
 

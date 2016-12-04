@@ -6,6 +6,20 @@ Meteor.startup(() => {
 
 
 Meteor.methods({
+  downloadCandidates: function() {
+    var collection = Candidates.find().fetch();
+    var heading = true; // Optional, defaults to true
+    var delimiter = "\t" ;//";" // Optional, defaults to ",";
+
+    // convert siteIds to actual names of sites
+    //
+
+
+
+
+
+    return exportcsv.exportToCSV(collection, heading, delimiter);
+  },
   parseCandidatesUpload( data ) {
     check( data, Array );
 
@@ -42,8 +56,8 @@ Meteor.methods({
 
         if (item['Monday Start Time'] == "Not Available")
         {
-          item['Monday Start Time'] = "";
-          item['Monday End Time'] = "";
+          item['Monday Start Time'] = "00:00";
+          item['Monday End Time'] = "00:00";
         }
         else
         {
@@ -53,8 +67,8 @@ Meteor.methods({
 
         if (item['Tuesday Start Time'] == "Not Available")
         {
-          item['Tuesday Start Time'] = "";
-          item['Tuesday End Time'] = "";
+          item['Tuesday Start Time'] = "00:00";
+          item['Tuesday End Time'] = "00:00";
         }
         else
         {
@@ -64,8 +78,8 @@ Meteor.methods({
 
         if (item['Wednesday Start Time'] == "Not Available")
         {
-          item['Wednesday Start Time'] = "";
-          item['Wednesday End Time'] = "";
+          item['Wednesday Start Time'] = "00:00";
+          item['Wednesday End Time'] = "00:00";
         }
         else
         {
@@ -75,8 +89,8 @@ Meteor.methods({
 
         if (item['Thursday Start Time'] == "Not Available")
         {
-          item['Thursday Start Time'] = "";
-          item['Thursday End Time'] = "";
+          item['Thursday Start Time'] = "00:00";
+          item['Thursday End Time'] = "00:00";
         }
         else
         {
@@ -86,24 +100,24 @@ Meteor.methods({
 
         if (item['Friday Start Time'] == "Not Available")
         {
-          item['Friday Start Time'] = "";
-          item['Friday End Time'] = "";
+          item['Friday Start Time'] = "00:00";
+          item['Friday End Time'] = "00:00";
         }
         else
         {
           item['Friday Start Time'] = moment(item['Friday Start Time'],"H:mma").format("HH:mm");
           item['Friday End Time'] = moment(item['Friday End Time'],"H:mma").format("HH:mm");
         }
-/*
+
         let candidateToInsert = {}
 
-        candidateToInsert["First Name"] = item["First Name"];
-        candidateToInsert["Last Name"] = item["Last Name"];
-        candidateToInsert["Position_Site_Preference1"] = item["Position_Site_Preference1"];
-        candidateToInsert["Position_Site_Preference2"] = item["Position_Site_Preference2"];
-        candidateToInsert["Position_Site_Preference3"] = item["Position_Site_Preference3"];
-        candidateToInsert["Preferred Volunteer Status"] = item["Preferred Volunteer Status"];
-        candidateToInsert["Number of Days to Work"] = item["Number of Days to Work"];
+        candidateToInsert["First Name"] = item["First Name"];//? item["First Name"] : "Empty";
+        candidateToInsert["Last Name"] = item["Last Name"];// ? item["Last Name"] : "Empty";
+        candidateToInsert["Position_Site_Preference1"] = item["Position_Site_Preference1"] ? item["Position_Site_Preference1"] : "Empty";
+        candidateToInsert["Position_Site_Preference2"] = item["Position_Site_Preference2"] ? item["Position_Site_Preference2"] : "Empty";
+        candidateToInsert["Position_Site_Preference3"] = item["Position_Site_Preference3"] ? item["Position_Site_Preference3"] : "Empty";
+        candidateToInsert["Preferred Volunteer Status"] = item["Preferred Volunteer Status"] ? item["Preferred Volunteer Status"] : "Empty";
+        candidateToInsert["Number of Days to Work"] = item["Number of Days to Work"] ? item["Number of Days to Work"]: 0;
         candidateToInsert["Monday Start Time"] = item["Monday Start Time"];
         candidateToInsert["Monday End Time"] = item["Monday End Time"];
         candidateToInsert["Tuesday Start Time"] = item["Tuesday Start Time"];
@@ -114,14 +128,14 @@ Meteor.methods({
         candidateToInsert["Thursday End Time"] = item["Thursday End Time"];
         candidateToInsert["Friday Start Time"] = item["Friday Start Time"];
         candidateToInsert["Friday End Time"] = item["Friday End Time"];
-        candidateToInsert["Returning Tutor"] = item["Returning Tutor?"];
-        candidateToInsert["Access to Car"] = item["Access to Car"];
-        candidateToInsert["Willing to Travel"] = item["Willing to Travel?"];
-        candidateToInsert["Languages Spoken"] = item["Languages Spoken"];
-        candidateToInsert["Age Group Preference"] = item["Age Group Preference"];
-        candidateToInsert["Graduation Year"] = item["Graduation Year"];
-*/
-        Candidates.insert( item );
+        candidateToInsert["Returning Tutor"] = item["Returning Tutor?"]? item["Returning Tutor?"] : "No";
+        candidateToInsert["Access to Car"] = item["Access to Car"]? item["Access to Car"] : "No";
+        candidateToInsert["Willing to Travel"] = item["Willing to Travel?"] ? item["Willing to Travel?"] : "No";
+        candidateToInsert["Languages Spoken"] = item["Languages Spoken"] ? item["Languages Spoken"] : "Empty";
+        candidateToInsert["Age Group Preference"] = item["Age Group Preference"] ? item["Age Group Preference"] : "Empty";
+        candidateToInsert["Graduation Year"] = item["Graduation Year"] ? item["Graduation Year"]: "Empty";
+
+        Candidates.insert( candidateToInsert );
       } else {
         console.warn( 'Row upload rejected. This item does not have a first name or last name.' );
       }
@@ -132,6 +146,8 @@ Meteor.methods({
     check( data, Array );
 
     Sites.remove({});
+    Sites.insert({_id: "pending", Site:"*Pending"});
+    Sites.insert({_id: "unassigned", Site: "*Unassigned"});
 
     for ( let i = 0; i < data.length; i++ ) {
       let item   = data[ i ];
