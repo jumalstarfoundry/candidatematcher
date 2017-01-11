@@ -1,7 +1,10 @@
 -DEVELOPMENT SETUP
 -- Clone from github
 -- Add npm packages
--meteor npm install --save babel-runtime bcryptn underscore
+- meteor npm install --save babel-runtime bcrypt underscore
+
+-To fix bcrypt error (try if all else fails:)
+meteor add npm-bcrypt@0.8.7
 
 -To clean:
  -- Uninstall meteor
