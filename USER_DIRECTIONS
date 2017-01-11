@@ -1,0 +1,12 @@
+= USER_DIRECTIONS =
+
+== IMPORT ==
+- Upload sites first
+- Upload candidates after- ensure a prioritySite column exists with the full name of the site that the student is matched to. Otherwise *Pending or blank will match the 
+candidate to the "Pending" site
+
+== EXPORT ==
+- To convert text all in one column into several columns, when exporting candidates
+  - Select first col > Data > Text to Cols > click next buttons until Finished
+  
+- 

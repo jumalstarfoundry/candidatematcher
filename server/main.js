@@ -151,6 +151,14 @@ Meteor.methods({
         candidateToInsert["Age Group Preference"] = item["Age Group Preference"] ? item["Age Group Preference"] : "Empty";
         candidateToInsert["Graduation Year"] = item["Graduation Year"] ? item["Graduation Year"]: "Empty";
 
+        // Match site in file upload to site currently in system
+        let assignedPrioritySite = Sites.findOne({Site: item["prioritySite"]});
+
+        if(assignedPrioritySite){
+          candidateToInsert["prioritySite"] = assignedPrioritySite._id;          
+        } // else, defaultValue in schema will assign candidate to *Pending site
+
+
         Candidates.insert( candidateToInsert );
       } else {
         console.warn( 'Row upload rejected. This item does not have a first name or last name.' );
