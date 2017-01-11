@@ -11,25 +11,26 @@
   "author": {
     "name": "ramr",
     "email": "ramr@example.org",
-    "url":  "http://www.openshift.com/"
+    "url": "http://www.openshift.com/"
   },
   "homepage": "http://www.openshift.com/",
   "repository": {
     "type": "git",
     "url": "https://gitub.com/ramr/nodejs-custom-version-openshift"
   },
-
   "engines": {
     "node": ">= 0.6.0",
     "npm": ">= 1.0.0"
   },
-
   "dependencies": {
-    "express": "*"
+    "babel-runtime": "^6.20.0",
+    "bcrypt": "^1.0.2",
+    "express": "*",
+    "meteor-node-stubs": "^0.2.4",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {},
   "bundleDependencies": [],
-
   "private": true,
   "main": "server.js"
 }
